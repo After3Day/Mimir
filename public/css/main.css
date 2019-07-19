@@ -1,0 +1,32 @@
+.bg-primary {
+  background-color: #87b0ce !important;
+}
+
+.nav-link:active, :focus, :hover {
+  color: black !important;
+}
+
+.btn {
+  background-color: #243d78;
+  border-color:  #87b0ce;
+}
+
+.btn:hover {
+  background-color: #87b0ce;
+  border-color:  #243d78;
+}
+
+.footer {
+  display: flex;
+  margin: auto;
+  position: absolute;
+  bottom: 0;
+  width: 100% !important;
+  height: 40px;
+  text-align: center !important;
+  background-color: #87b0ce !important;
+}
+
+.copyright {
+  margin: auto;
+}

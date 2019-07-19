@@ -1,0 +1,27 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+
+  <h1>Mimir</h1>
+  <hr>
+  <div>
+    <form action="" method="post">
+      <div class="input-group mb-3">
+        <input placeholder="Search" required  name="Search" type="search" class="form-control">
+        <div class="input-group-append">
+                <select class="custom-select">
+                  <option selected="">Choisir une option de recherche</option>
+                  <option value="1">Modèle</option>
+                  <option value="2">Designer</option>
+                  <option value="3">Club</option>
+                  <option value="4">Collectionneurs</option>
+                </select>
+        </div>
+        <div class="from-group">
+          <button type="submit" class="btn btn-success">Rechercher</button>
+        </div>
+      </div>
+    </form>
+  </div>
+
+{% endblock %}
