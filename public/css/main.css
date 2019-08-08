@@ -30,3 +30,7 @@
 .copyright {
   margin: auto;
 }
+
+.custom-radio {
+  display: inline-block;
+}
