@@ -5,25 +5,29 @@
   <h1>Mimir</h1>
   <hr>
   <div>
-    <form action="" method="post">
+    <form action="{{ path('searchForm') }}" method="post">
       <div class="form-group" id="test2">
         <div class="custom-control custom-radio">
-          <input type="radio" id="modele" name="customRadio" class="custom-control-input">
+          <input type="radio" id="modele" name="customRadio" class="custom-control-input" value="modele" checked="">
           <label class="custom-control-label" for="modele">Modele</label>
         </div>
         <div class="custom-control custom-radio">
-          <input type="radio" id="club" name="customRadio" class="custom-control-input">
+          <input type="radio" id="club" name="customRadio" class="custom-control-input" value="club">
           <label class="custom-control-label" for="club">Club</label>
         </div>
         <div class="custom-control custom-radio">
-          <input type="radio" id="event" name="customRadio" class="custom-control-input">
+          <input type="radio" id="event" name="customRadio" class="custom-control-input" value="event">
           <label class="custom-control-label" for="event">Evenement</label>
         </div>
         <div class="custom-control custom-radio">
-          <input type="radio" id="collector" name="customRadio" class="custom-control-input">
+          <input type="radio" id="collector" name="customRadio" class="custom-control-input" value="collector">
           <label class="custom-control-label" for="collector">Collectionneur</label>
         </div>
       </div>
+      <div id="">
+
+      </div>
+
       <div class="input-group mb-3">
       <div class="from-group">
         <button type="submit" class="btn btn-success">Rechercher</button>

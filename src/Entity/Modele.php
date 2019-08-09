@@ -43,6 +43,11 @@ class Modele
      */
     private $mediaId;
 
+    /**
+     * @ORM\Column(type="string", length=255)
+     */
+    private $modele;
+
     public function __construct()
     {
         $this->versionId = new ArrayCollection();
@@ -179,6 +184,18 @@ class Modele
                 $mediaId->setModeleId(null);
             }
         }
+
+        return $this;
+    }
+
+    public function getModele(): ?string
+    {
+        return $this->modele;
+    }
+
+    public function setModele(string $modele): self
+    {
+        $this->modele = $modele;
 
         return $this;
     }
