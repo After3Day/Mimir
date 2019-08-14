@@ -69,6 +69,19 @@ Encore
     // uncomment if you use API Platform Admin (composer req api-admin)
     //.enableReactPreset()
     //.addEntry('admin', './assets/js/admin.js')
+
+    .autoProvideVariables({
+        "Routing": "router"
+    })
+    .addLoader({
+        test: /jsrouting-bundle\/Resources\/public\/js\/router.js$/,
+        loader: "exports-loader?router=window.Routing"
+    })
+
+    let config = Encore.getWebpackConfig();
+    config.resolve.alias = {
+        'router': __dirname + '/public/js/router.js'
+    };
 ;
 
 module.exports = Encore.getWebpackConfig();

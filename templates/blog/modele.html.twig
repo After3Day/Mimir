@@ -3,31 +3,11 @@
 {% block body %}
   <h1>Modèles</h1>
   <hr>
-<form action="" method="POST">
-  <div class="form-group">
-    <div class="form-group">
-      <div class="input-group mb-3">
-        <div class="input-group-prepend">
-          <div class="input-group-append">
 
-          </div>
-        </div>
-        <div class="input-group-append">
-          <div class="input-group-append">
-          </div>
-        </div>
-      </div>
-    </div>
-    <div class="input-group mb-3">
-      <div class="from-group">
-        <button type="submit" class="btn btn-success">Soummettre</button>
-      </div>
-    </div>
-  </div>
-</form>
-{{ form_start(modele) }}
-{{ form_row(modele.modele) }}
 
-{{ form_end(modele) }}
+<input type="hidden" id="urlAjax" value="{{path('searchModele')}}"/>
 
+<div id='results'>
+
+</div>
 {% endblock %}

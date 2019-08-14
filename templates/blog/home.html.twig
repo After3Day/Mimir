@@ -24,13 +24,17 @@
           <label class="custom-control-label" for="collector">Collectionneur</label>
         </div>
       </div>
-      <div id="">
-
-      </div>
 
       <div class="input-group mb-3">
       <div class="from-group">
-        <button type="submit" class="btn btn-success">Rechercher</button>
+        <hr>
+      <input id="modeleSearching" />
+
+      <input type="hidden" id="urlAjax" value="{{path('searchModele')}}"/>
+
+      <div id='results'>
+
+      </div>
       </div>
       </div>
     </form>

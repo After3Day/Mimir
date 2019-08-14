@@ -19,6 +19,16 @@ class ModeleRepository extends ServiceEntityRepository
         parent::__construct($registry, Modele::class);
     }
 
+    public function findByLetters($value) {
+
+        return $this->createQueryBuilder('m')
+            ->andWhere('m.modele like :val')
+            ->setParameter('val', $value.'%')
+            ->getQuery()
+            ->getResult()
+        ;
+    }
+
     // /**
     //  * @return Modele[] Returns an array of Modele objects
     //  */

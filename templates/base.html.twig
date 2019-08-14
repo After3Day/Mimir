@@ -37,6 +37,9 @@
 		</div>
 
         {% block javascripts %}
+           <script type="text/javascript" src="{{ asset('bundles/fosjsrouting/js/router.js') }}"></script>
+ <script type="text/javascript"src="{{ path('fos_js_routing_js', {"callback": "fos.Router.setData"}) }}"></script>
+          <script src="https://code.jquery.com/jquery-3.3.1.min.js" integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8=" crossorigin="anonymous"></script>
           {{ encore_entry_script_tags('app') }}
 
             <!-- Renders app.js & a webpack runtime.js file

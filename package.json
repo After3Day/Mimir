@@ -16,5 +16,9 @@
     "name": "Project-Mimir",
     "version": "1.0.0",
     "main": "index.js",
-    "author": "ErwanP <dirkain32@gmail.com>"
+    "author": "ErwanP <dirkain32@gmail.com>",
+    "dependencies": {
+        "ckeditor": "^4.0.0",
+        "jquery": "^3.4.1"
+    }
 }

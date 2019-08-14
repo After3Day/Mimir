@@ -26,25 +26,8 @@ class ModeleSearchType extends AbstractType
 
         $builder
             ->remove('manufacturerName')
-
-            ->add('Marque', EntityType::class, array(
-        'class'         => Modele::class,
-        'choice_label'  => 'manufacturerName',
-        'multiple'      => false,
-      ))
+            ->add('modele', TextType::class)
     ;
-        $builder->addEventListener(FormEvents::PRE_SET_DATA, function (FormEvent $event) {
-            $form = $event->getForm();
-
-            $formOptions = [
-                'class'         => Modele::class,
-                'choice_label'  => 'modele',
-                'multiple'      => false,
-
-            ];
-
-            $form->add('modele', EntityType::class, $formOptions);
-    });
     }
 
     public function getParent()

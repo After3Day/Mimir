@@ -26,7 +26,7 @@ class Modele
     /**
      * @ORM\OneToMany(targetEntity="App\Entity\Version", mappedBy="modeleId", orphanRemoval=true)
      */
-    private $versionId;
+    private $versions;
 
     /**
      * @ORM\ManyToMany(targetEntity="App\Entity\Collector", inversedBy="modeles")
@@ -50,7 +50,7 @@ class Modele
 
     public function __construct()
     {
-        $this->versionId = new ArrayCollection();
+        $this->versions = new ArrayCollection();
         $this->collectorId = new ArrayCollection();
         $this->designerId = new ArrayCollection();
         $this->mediaId = new ArrayCollection();
@@ -77,28 +77,28 @@ class Modele
     /**
      * @return Collection|Version[]
      */
-    public function getVersionId(): Collection
+    public function getVersions(): Collection
     {
-        return $this->versionId;
+        return $this->versions;
     }
 
-    public function addVersionId(Version $versionId): self
+    public function addVersion(Version $version): self
     {
-        if (!$this->versionId->contains($versionId)) {
-            $this->versionId[] = $versionId;
-            $versionId->setModeleId($this);
+        if (!$this->versions->contains($version)) {
+            $this->versions[] = $version;
+            $version->setModeleId($this);
         }
 
         return $this;
     }
 
-    public function removeVersionId(Version $versionId): self
+    public function removeVersion(Version $version): self
     {
-        if ($this->versionId->contains($versionId)) {
-            $this->versionId->removeElement($versionId);
+        if ($this->versions->contains($version)) {
+            $this->versions->removeElement($version);
             // set the owning side to null (unless already changed)
-            if ($versionId->getModeleId() === $this) {
-                $versionId->setModeleId(null);
+            if ($version->getModeleId() === $this) {
+                $version->setModeleId(null);
             }
         }
 

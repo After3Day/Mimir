@@ -13,6 +13,8 @@ use Symfony\Component\Form\Extension\Core\Type\TextareaType;
 
 use Doctrine\Common\Persistence\ObjectManager;
 
+use App\Repository\ModeleRepository;
+
 Use App\Entity\Modele;
 use App\Form\ModeleType;
 use App\Form\ModeleSearchType;
@@ -51,10 +53,17 @@ class BlogController extends AbstractController
       }
       //Switch depending on route value calling appropriate service
 
-
-
     }
 
+    /**
+     * @Route("/search/{type}/{search}", name="searchModele")
+     */
+    public function searchModele(Request $request, ModeleRepository $repo, $search=null, $type=null) {
 
+        $results = $repo->findByLetters($search);
 
+        return $this->render('blog/resultats.html.twig', [
+         'modeles' =>$results
+       ]);
+    }
 }
