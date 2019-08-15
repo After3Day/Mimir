@@ -25,13 +25,13 @@ class Club
      * @ORM\OneToOne(targetEntity="App\Entity\Contact", cascade={"persist", "remove"})
      * @ORM\JoinColumn(nullable=false)
      */
-    private $contactId;
+    private $contact;
 
     /**
      * @ORM\OneToOne(targetEntity="App\Entity\Address", cascade={"persist", "remove"})
      * @ORM\JoinColumn(nullable=false)
      */
-    private $addressId;
+    private $address;
 
     public function getId(): ?int
     {
@@ -50,26 +50,26 @@ class Club
         return $this;
     }
 
-    public function getContactId(): ?Contact
+    public function getContact(): ?Contact
     {
-        return $this->contactId;
+        return $this->contact;
     }
 
-    public function setContactId(Contact $contactId): self
+    public function setContact(Contact $contact): self
     {
-        $this->contactId = $contactId;
+        $this->contact = $contact;
 
         return $this;
     }
 
-    public function getAddressId(): ?Address
+    public function getAddress(): ?Address
     {
-        return $this->addressId;
+        return $this->address;
     }
 
-    public function setAddressId(Address $addressId): self
+    public function setAddress(Address $address): self
     {
-        $this->addressId = $addressId;
+        $this->address = $address;
 
         return $this;
     }

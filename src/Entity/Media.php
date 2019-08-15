@@ -57,9 +57,9 @@ class Media
     private $language;
 
     /**
-     * @ORM\ManyToOne(targetEntity="App\Entity\Modele", inversedBy="mediaId")
+     * @ORM\ManyToOne(targetEntity="App\Entity\Modele", inversedBy="medias")
      */
-    private $modeleId;
+    private $modele;
 
     public function getId(): ?int
     {
@@ -162,14 +162,14 @@ class Media
         return $this;
     }
 
-    public function getModeleId(): ?Modele
+    public function getModele(): ?Modele
     {
-        return $this->modeleId;
+        return $this->modele;
     }
 
-    public function setModeleId(?Modele $modeleId): self
+    public function setModele(?Modele $modele): self
     {
-        $this->modeleId = $modeleId;
+        $this->modele = $modele;
 
         return $this;
     }

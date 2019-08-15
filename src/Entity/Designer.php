@@ -39,7 +39,7 @@ class Designer
     private $wikiLink;
 
     /**
-     * @ORM\ManyToMany(targetEntity="App\Entity\Modele", mappedBy="designerId")
+     * @ORM\ManyToMany(targetEntity="App\Entity\Modele", mappedBy="designers")
      */
     private $modeles;
 
@@ -113,7 +113,7 @@ class Designer
     {
         if (!$this->modeles->contains($modele)) {
             $this->modeles[] = $modele;
-            $modele->addDesignerId($this);
+            $modele->addDesigners($this);
         }
 
         return $this;
@@ -123,7 +123,7 @@ class Designer
     {
         if ($this->modeles->contains($modele)) {
             $this->modeles->removeElement($modele);
-            $modele->removeDesignerId($this);
+            $modele->removeDesigners($this);
         }
 
         return $this;

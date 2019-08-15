@@ -19,6 +19,16 @@ class EventRepository extends ServiceEntityRepository
         parent::__construct($registry, Event::class);
     }
 
+    public function findByLetters($value) {
+
+        return $this->createQueryBuilder('m')
+            ->andWhere('m.eventName like :val')
+            ->setParameter('val', $value.'%')
+            ->getQuery()
+            ->getResult()
+        ;
+    }
+
     // /**
     //  * @return Event[] Returns an array of Event objects
     //  */

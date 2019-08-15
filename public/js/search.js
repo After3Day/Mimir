@@ -8,14 +8,14 @@ window.onload = function () {
 
 
     // check if input is keyup
-    $('#modeleSearching').keyup(function () {
+    $('#searching').keyup(function () {
 
-        let myString = $('#modeleSearching').val();
+        let myString = $('#searching').val();
 
-        let type = $('#typeSearch').val();
+        let type = $('.custom-control-input:checked').val();
 
         //console.log(myString);
-         if(myString.length > 1) {
+         if(myString.length > 0) {
              $.ajax({
                  method: "GET",
                  url: urlAjax+'/'+type+'/'+myString,

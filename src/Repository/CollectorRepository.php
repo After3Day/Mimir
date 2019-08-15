@@ -19,6 +19,16 @@ class CollectorRepository extends ServiceEntityRepository
         parent::__construct($registry, Collector::class);
     }
 
+    public function findByLetters($value) {
+
+        return $this->createQueryBuilder('m')
+            ->andWhere('m.eventName like :val')
+            ->setParameter('val', $value.'%')
+            ->getQuery()
+            ->getResult()
+        ;
+    }
+
     // /**
     //  * @return Collector[] Returns an array of Collector objects
     //  */

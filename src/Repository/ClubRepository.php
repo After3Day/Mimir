@@ -19,6 +19,16 @@ class ClubRepository extends ServiceEntityRepository
         parent::__construct($registry, Club::class);
     }
 
+    public function findByLetters($value) {
+
+        return $this->createQueryBuilder('m')
+            ->andWhere('m.clubName like :val')
+            ->setParameter('val', $value.'%')
+            ->getQuery()
+            ->getResult()
+        ;
+    }
+
     // /**
     //  * @return Club[] Returns an array of Club objects
     //  */

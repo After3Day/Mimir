@@ -1,26 +1,29 @@
+
+
 {% extends 'base.html.twig' %}
 
 {% block body %}
 
   <h1>Mimir</h1>
+
   <hr>
   <div>
-    <form action="{{ path('searchForm') }}" method="post">
+    <form action="" method="post">
       <div class="form-group" id="test2">
         <div class="custom-control custom-radio">
-          <input type="radio" id="modele" name="customRadio" class="custom-control-input" value="modele" checked="">
+          <input type="radio" id="modele" name="customRadio" class="custom-control-input" value="Modele" checked="">
           <label class="custom-control-label" for="modele">Modele</label>
         </div>
         <div class="custom-control custom-radio">
-          <input type="radio" id="club" name="customRadio" class="custom-control-input" value="club">
+          <input type="radio" id="club" name="customRadio" class="custom-control-input" value="Club">
           <label class="custom-control-label" for="club">Club</label>
         </div>
         <div class="custom-control custom-radio">
-          <input type="radio" id="event" name="customRadio" class="custom-control-input" value="event">
+          <input type="radio" id="event" name="customRadio" class="custom-control-input" value="Event">
           <label class="custom-control-label" for="event">Evenement</label>
         </div>
         <div class="custom-control custom-radio">
-          <input type="radio" id="collector" name="customRadio" class="custom-control-input" value="collector">
+          <input type="radio" id="collector" name="customRadio" class="custom-control-input" value="Collector">
           <label class="custom-control-label" for="collector">Collectionneur</label>
         </div>
       </div>
@@ -28,9 +31,9 @@
       <div class="input-group mb-3">
       <div class="from-group">
         <hr>
-      <input id="modeleSearching" />
+      <input id="searching" />
 
-      <input type="hidden" id="urlAjax" value="{{path('searchModele')}}"/>
+      <input type="hidden" id="urlAjax" value="{{path('search')}}"/>
 
       <div id='results'>
 

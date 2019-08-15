@@ -46,7 +46,7 @@ class Contact
      * @ORM\OneToOne(targetEntity="App\Entity\Address", cascade={"persist", "remove"})
      * @ORM\JoinColumn(nullable=false)
      */
-    private $addressId;
+    private $address;
 
     public function getId(): ?int
     {
@@ -114,14 +114,14 @@ class Contact
         return $this;
     }
 
-    public function getAddressId(): ?Address
+    public function getAddress(): ?Address
     {
-        return $this->addressId;
+        return $this->address;
     }
 
-    public function setAddressId(Address $addressId): self
+    public function setAddress(Address $address): self
     {
-        $this->addressId = $addressId;
+        $this->address = $address;
 
         return $this;
     }

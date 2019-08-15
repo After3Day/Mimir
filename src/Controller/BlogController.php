@@ -5,6 +5,7 @@ namespace App\Controller;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\HttpFoundation\Request;
+use Doctrine\ORM\EntityManagerInterface;
 
 use Symfony\Component\Form\Extension\Core\Type\DateType;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
@@ -12,10 +13,16 @@ use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\Extension\Core\Type\TextareaType;
 
 use Doctrine\Common\Persistence\ObjectManager;
+use Doctrine\ORM\EntityRepository;
 
 use App\Repository\ModeleRepository;
+use App\Repository\ClubRepository;
+use App\Repository\EventRepository;
+use App\Repository\CollectorRepository;
 
 Use App\Entity\Modele;
+Use App\Entity\Club;
+Use App\Entity\Event;
 use App\Form\ModeleType;
 use App\Form\ModeleSearchType;
 
@@ -33,37 +40,27 @@ class BlogController extends AbstractController
     }
 
     /**
-     * @Route("/search", name="searchForm")
+     * @Route("/search/{type}/{search}", name="search")
+     *
      */
+    public function searchM(Request $request, EntityManagerInterface $em, $search=null, $type=null) {
 
-    public function searchForm(Request $request) {
+        if( $type === 'Club') {
+          $repository = $em->getRepository(Club::class);
+        } elseif( $type === 'Event') {
+          $repository = $em->getRepository(Event::class);
+        } elseif( $type === 'Modele') {
+          $repository = $em->getRepository(Modele::class);
+        }
 
-      $route = $request->get('customRadio');
+        $results = $repository->findByLetters($search);
 
-      $form = $this->createForm(ModeleSearchType::class);
 
-      if ($route != '') {
-
-        $routeT = 'blog/'.$route.'.html.twig';
-        return $this->render($routeT, [
-          $route => $form->createView()
-        ]);
-      } else {
-        return $this->redirectToRoute('home');
-      }
-      //Switch depending on route value calling appropriate service
-
-    }
-
-    /**
-     * @Route("/search/{type}/{search}", name="searchModele")
-     */
-    public function searchModele(Request $request, ModeleRepository $repo, $search=null, $type=null) {
-
-        $results = $repo->findByLetters($search);
 
         return $this->render('blog/resultats.html.twig', [
-         'modeles' =>$results
+         'results' => $results,
+         'type' => $type
        ]);
     }
+
 }

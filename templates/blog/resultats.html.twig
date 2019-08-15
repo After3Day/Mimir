@@ -1,5 +1,25 @@
-{% for modele in modeles %}
+{% if type is same as ('Modele')  %}
+
+{% for modele in results %}
   <li>
-   <a href="{{path('home')}}" >{{modele.manufacturerName}} {{ modele.modele}}</a>
+   <a href="{{path('home')}}" > {{modele.getBrand().getBrandName()}} {{ modele.modele}} </a>
   </li>
 {% endfor %}
+
+{% elseif type is same as ('Club') %}
+
+{% for club in results %}
+  <li>
+   <a href="{{path('home')}}" > {{ club.clubName}} </a>
+  </li>
+{% endfor %}
+
+{% elseif type is same as ('Event') %}
+
+{% for event in results %}
+  <li>
+   <a href="{{path('home')}}" > {{event.eventName}} </a>
+  </li>
+{% endfor %}
+
+{% endif %}

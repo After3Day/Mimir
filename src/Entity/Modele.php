@@ -19,59 +19,48 @@ class Modele
     private $id;
 
     /**
-     * @ORM\Column(type="string", length=255)
-     */
-    private $manufacturerName;
-
-    /**
-     * @ORM\OneToMany(targetEntity="App\Entity\Version", mappedBy="modeleId", orphanRemoval=true)
+     * @ORM\OneToMany(targetEntity="App\Entity\Version", mappedBy="modeles", orphanRemoval=true)
      */
     private $versions;
 
     /**
      * @ORM\ManyToMany(targetEntity="App\Entity\Collector", inversedBy="modeles")
      */
-    private $collectorId;
+    private $collectors;
 
     /**
      * @ORM\ManyToMany(targetEntity="App\Entity\Designer", inversedBy="modeles")
      */
-    private $designerId;
+    private $designers;
 
     /**
-     * @ORM\OneToMany(targetEntity="App\Entity\Media", mappedBy="modeleId")
+     * @ORM\OneToMany(targetEntity="App\Entity\Media", mappedBy="modeles")
      */
-    private $mediaId;
+    private $medias;
 
     /**
      * @ORM\Column(type="string", length=255)
      */
     private $modele;
 
+    /**
+     * @ORM\ManyToOne(targetEntity="App\Entity\Brand", inversedBy="modeles")
+     * @ORM\JoinColumn(nullable=false)
+     */
+    private $brand;
+
     public function __construct()
     {
         $this->versions = new ArrayCollection();
-        $this->collectorId = new ArrayCollection();
-        $this->designerId = new ArrayCollection();
-        $this->mediaId = new ArrayCollection();
+        $this->collectors = new ArrayCollection();
+        $this->designers = new ArrayCollection();
+        $this->medias = new ArrayCollection();
     }
 
 
     public function getId(): ?int
     {
         return $this->id;
-    }
-
-    public function getManufacturerName(): ?string
-    {
-        return $this->manufacturerName;
-    }
-
-    public function setManufacturerName(string $manufacturerName): self
-    {
-        $this->manufacturerName = $manufacturerName;
-
-        return $this;
     }
 
     /**
@@ -86,7 +75,7 @@ class Modele
     {
         if (!$this->versions->contains($version)) {
             $this->versions[] = $version;
-            $version->setModeleId($this);
+            $version->setModeles($this);
         }
 
         return $this;
@@ -97,8 +86,8 @@ class Modele
         if ($this->versions->contains($version)) {
             $this->versions->removeElement($version);
             // set the owning side to null (unless already changed)
-            if ($version->getModeleId() === $this) {
-                $version->setModeleId(null);
+            if ($version->getModeles() === $this) {
+                $version->setModeles(null);
             }
         }
 
@@ -108,24 +97,24 @@ class Modele
     /**
      * @return Collection|Collector[]
      */
-    public function getCollectorId(): Collection
+    public function getCollectors(): Collection
     {
-        return $this->collectorId;
+        return $this->collectors;
     }
 
-    public function addCollectorId(Collector $collectorId): self
+    public function addCollector(Collector $collector): self
     {
-        if (!$this->collectorId->contains($collectorId)) {
-            $this->collectorId[] = $collectorId;
+        if (!$this->collectors->contains($collector)) {
+            $this->collectors[] = $collector;
         }
 
         return $this;
     }
 
-    public function removeCollectorId(Collector $collectorId): self
+    public function removeCollector(Collector $collector): self
     {
-        if ($this->collectorId->contains($collectorId)) {
-            $this->collectorId->removeElement($collectorId);
+        if ($this->collectors->contains($collector)) {
+            $this->collectors->removeElement($collector);
         }
 
         return $this;
@@ -134,24 +123,24 @@ class Modele
     /**
      * @return Collection|Designer[]
      */
-    public function getDesignerId(): Collection
+    public function getDesigners(): Collection
     {
-        return $this->designerId;
+        return $this->designers;
     }
 
-    public function addDesignerId(Designer $designerId): self
+    public function addDesigner(Designer $designer): self
     {
-        if (!$this->designerId->contains($designerId)) {
-            $this->designerId[] = $designerId;
+        if (!$this->designers->contains($designer)) {
+            $this->designers[] = $designer;
         }
 
         return $this;
     }
 
-    public function removeDesignerId(Designer $designerId): self
+    public function removeDesigner(Designer $designer): self
     {
-        if ($this->designerId->contains($designerId)) {
-            $this->designerId->removeElement($designerId);
+        if ($this->designers->contains($designer)) {
+            $this->designers->removeElement($designer);
         }
 
         return $this;
@@ -160,28 +149,28 @@ class Modele
     /**
      * @return Collection|Media[]
      */
-    public function getMediaId(): Collection
+    public function getMedias(): Collection
     {
-        return $this->mediaId;
+        return $this->medias;
     }
 
-    public function addMediaId(Media $mediaId): self
+    public function addMedia(Media $media): self
     {
-        if (!$this->mediaId->contains($mediaId)) {
-            $this->mediaId[] = $mediaId;
-            $mediaId->setModeleId($this);
+        if (!$this->medias->contains($media)) {
+            $this->media[] = $media;
+            $media->setModeles($this);
         }
 
         return $this;
     }
 
-    public function removeMediaId(Media $mediaId): self
+    public function removeMedia(Media $media): self
     {
-        if ($this->mediaId->contains($mediaId)) {
-            $this->mediaId->removeElement($mediaId);
+        if ($this->medias->contains($media)) {
+            $this->medias->removeElement($media);
             // set the owning side to null (unless already changed)
-            if ($mediaId->getModeleId() === $this) {
-                $mediaId->setModeleId(null);
+            if ($media->getModeles() === $this) {
+                $media->setModeles(null);
             }
         }
 
@@ -196,6 +185,18 @@ class Modele
     public function setModele(string $modele): self
     {
         $this->modele = $modele;
+
+        return $this;
+    }
+
+    public function getBrand(): ?Brand
+    {
+        return $this->brand;
+    }
+
+    public function setBrand(?Brand $brand): self
+    {
+        $this->brand = $brand;
 
         return $this;
     }

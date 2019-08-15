@@ -22,10 +22,10 @@ class Version
     private $versionName;
 
     /**
-     * @ORM\ManyToOne(targetEntity="App\Entity\Modele", inversedBy="versionId")
+     * @ORM\ManyToOne(targetEntity="App\Entity\Modele", inversedBy="versions")
      * @ORM\JoinColumn(nullable=false)
      */
-    private $modeleId;
+    private $modele;
 
     public function getId(): ?int
     {
@@ -44,14 +44,14 @@ class Version
         return $this;
     }
 
-    public function getModeleId(): ?Modele
+    public function getModele(): ?Modele
     {
-        return $this->modeleId;
+        return $this->modele;
     }
 
-    public function setModeleId(?Modele $modeleId): self
+    public function setModele(?Modele $modele): self
     {
-        $this->modeleId = $modeleId;
+        $this->modele = $modele;
 
         return $this;
     }

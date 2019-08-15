@@ -7,9 +7,9 @@ use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
- * @ORM\Entity(repositoryClass="App\Repository\CollectorRepository")
+ * @ORM\Entity(repositoryClass="App\Repository\BrandRepository")
  */
-class Collector
+class Brand
 {
     /**
      * @ORM\Id()
@@ -19,13 +19,12 @@ class Collector
     private $id;
 
     /**
-     * @ORM\OneToOne(targetEntity="App\Entity\Contact", cascade={"persist", "remove"})
-     * @ORM\JoinColumn(nullable=false)
+     * @ORM\Column(type="string", length=255)
      */
-    private $contact;
+    private $brandName;
 
     /**
-     * @ORM\ManyToMany(targetEntity="App\Entity\Modele", mappedBy="collectors")
+     * @ORM\OneToMany(targetEntity="App\Entity\Modele", mappedBy="brand", orphanRemoval=true)
      */
     private $modeles;
 
@@ -34,20 +33,19 @@ class Collector
         $this->modeles = new ArrayCollection();
     }
 
-
     public function getId(): ?int
     {
         return $this->id;
     }
 
-    public function getContact(): ?Contact
+    public function getBrandName(): ?string
     {
-        return $this->contact;
+        return $this->brandName;
     }
 
-    public function setContact(Contact $contact): self
+    public function setBrandName(string $brandName): self
     {
-        $this->contact = $contact;
+        $this->brandName = $brandName;
 
         return $this;
     }
@@ -64,7 +62,7 @@ class Collector
     {
         if (!$this->modeles->contains($modele)) {
             $this->modeles[] = $modele;
-            $modele->addCollectors($this);
+            $modele->setBrand($this);
         }
 
         return $this;
@@ -74,10 +72,12 @@ class Collector
     {
         if ($this->modeles->contains($modele)) {
             $this->modeles->removeElement($modele);
-            $modele->removeCollectors($this);
+            // set the owning side to null (unless already changed)
+            if ($modele->getBrand() === $this) {
+                $modele->setBrand(null);
+            }
         }
 
         return $this;
     }
-
 }
