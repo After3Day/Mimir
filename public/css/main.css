@@ -2,8 +2,12 @@
   background-color: #87b0ce !important;
 }
 
-.nav-link:active, :focus, :hover {
+.nav-lin:active, :focus, :hover {
   color: black !important;
+}
+
+.search-link {
+  color:black !important;
 }
 
 .btn {

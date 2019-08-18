@@ -29,18 +29,16 @@
       </div>
 
       <div class="input-group mb-3">
-      <div class="from-group">
-        <hr>
-      <input id="searching" />
-
-      <input type="hidden" id="urlAjax" value="{{path('search')}}"/>
-
-      <div id='results'>
-
-      </div>
-      </div>
+        <div class="from-group">
+          <hr>
+          <input id="searching" />
+          <input type="hidden" id="urlAjax" value="{{path('search')}}"/>
+        </div>
       </div>
     </form>
+    <hr>
+    <div id='results'>
+    </div>
   </div>
 
 {% endblock %}

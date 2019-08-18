@@ -1,25 +1,51 @@
 {% if type is same as ('Modele')  %}
 
 {% for modele in results %}
-  <li>
-   <a href="{{path('home')}}" > {{modele.getBrand().getBrandName()}} {{ modele.modele}} </a>
-  </li>
+  <div class="card text-white bg-primary mb-3" style="max-width: 20rem;">
+    <div class="card-header"><a class='search-link' href="{{path('home')}}" > {{modele.getBrand().getBrandName()}} {{ modele.modele}} </a></div>
+    <div class="card-body">
+      <h4 class="card-title">{{modele.getBrand().getBrandName()}}</h4>
+      <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
+    </div>
+  </div>
 {% endfor %}
 
 {% elseif type is same as ('Club') %}
 
 {% for club in results %}
-  <li>
-   <a href="{{path('home')}}" > {{ club.clubName}} </a>
-  </li>
+  <div class="card text-white bg-primary mb-3" style="max-width: 20rem;">
+    <div class="card-header"><a class='search-link' href="{{path('home')}}" > {{ club.clubName }} </a></div>
+    <div class="card-body">
+      <h4 class="card-title">{{ club.clubName }}</h4>
+      <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
+    </div>
+  </div>
 {% endfor %}
 
 {% elseif type is same as ('Event') %}
 
 {% for event in results %}
-  <li>
-   <a href="{{path('home')}}" > {{event.eventName}} </a>
-  </li>
+  <div class="card text-white bg-primary mb-3" style="max-width: 20rem;">
+    <div class="card-header"><a class='search-link' href="{{path('home')}}" > {{ event.eventName }} </a></div>
+    <div class="card-body">
+      <h4 class="card-title">{{ event.eventName }}</h4>
+      <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
+    </div>
+  </div>
+{% endfor %}
+
+{% elseif type is same as ('Collector') %}
+
+{% for collector in results %}
+  <div class="card text-white bg-primary mb-3" style="max-width: 20rem;">
+    <div class="card-header"><a class='search-link' href="{{path('home')}}" >{{ collector.getContact().getSurName() }} {{ collector.getContact().getName() }} </a></div>
+    <div class="card-body">
+      <h4 class="card-title">{{ collector.getContact().getSurName() }} {{ collector.getContact().getName() }}</h4>
+      <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
+    </div>
+  </div>
 {% endfor %}
 
 {% endif %}
+
+

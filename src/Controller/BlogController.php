@@ -23,6 +23,7 @@ use App\Repository\CollectorRepository;
 Use App\Entity\Modele;
 Use App\Entity\Club;
 Use App\Entity\Event;
+Use App\Entity\Collector;
 use App\Form\ModeleType;
 use App\Form\ModeleSearchType;
 
@@ -51,6 +52,8 @@ class BlogController extends AbstractController
           $repository = $em->getRepository(Event::class);
         } elseif( $type === 'Modele') {
           $repository = $em->getRepository(Modele::class);
+        } elseif( $type === 'Collector') {
+          $repository = $em->getRepository(Collector::class);
         }
 
         $results = $repository->findByLetters($search);

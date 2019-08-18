@@ -3,6 +3,7 @@
 namespace App\Repository;
 
 use App\Entity\Collector;
+use App\Entity\Contact;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Symfony\Bridge\Doctrine\RegistryInterface;
 
@@ -22,7 +23,9 @@ class CollectorRepository extends ServiceEntityRepository
     public function findByLetters($value) {
 
         return $this->createQueryBuilder('m')
-            ->andWhere('m.eventName like :val')
+            ->join('m.contact', 'mu')
+            ->addSelect('mu')
+            ->andWhere('mu.name like :val')
             ->setParameter('val', $value.'%')
             ->getQuery()
             ->getResult()
