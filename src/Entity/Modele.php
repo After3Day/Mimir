@@ -19,7 +19,7 @@ class Modele
     private $id;
 
     /**
-     * @ORM\OneToMany(targetEntity="App\Entity\Version", mappedBy="modeles", orphanRemoval=true)
+     * @ORM\OneToMany(targetEntity="App\Entity\Version", mappedBy="modele", orphanRemoval=true)
      */
     private $versions;
 
@@ -34,7 +34,7 @@ class Modele
     private $designers;
 
     /**
-     * @ORM\OneToMany(targetEntity="App\Entity\Media", mappedBy="modeles")
+     * @ORM\OneToMany(targetEntity="App\Entity\Media", mappedBy="modele")
      */
     private $medias;
 

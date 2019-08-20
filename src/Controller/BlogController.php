@@ -58,12 +58,25 @@ class BlogController extends AbstractController
 
         $results = $repository->findByLetters($search);
 
-
-
-        return $this->render('blog/resultats.html.twig', [
+        return $this->render('blog/results.html.twig', [
          'results' => $results,
          'type' => $type
        ]);
+    }
+
+    /**
+     * @Route("/result/{id}", name="result")
+     *
+     */
+    public function resultM(Request $request, ModeleRepository $repo, Modele $modele) {
+
+      $id = $request->get('id');
+      $result = $repo->find($id);
+
+      return $this->render('blog/searchResult.html.twig', [
+         'result' => $result
+       ]);
+
     }
 
 }

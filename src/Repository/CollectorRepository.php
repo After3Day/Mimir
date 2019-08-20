@@ -26,6 +26,7 @@ class CollectorRepository extends ServiceEntityRepository
             ->join('m.contact', 'mu')
             ->addSelect('mu')
             ->andWhere('mu.name like :val')
+            ->orWhere('mu.surname like :val')
             ->setParameter('val', $value.'%')
             ->getQuery()
             ->getResult()
