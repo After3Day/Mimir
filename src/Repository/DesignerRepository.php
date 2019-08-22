@@ -19,6 +19,17 @@ class DesignerRepository extends ServiceEntityRepository
         parent::__construct($registry, Designer::class);
     }
 
+    public function findByLetters($value) {
+
+        return $this->createQueryBuilder('m')
+            ->andWhere('m.name like :val')
+            ->orWhere('m.surname like :val')
+            ->setParameter('val', $value.'%')
+            ->getQuery()
+            ->getResult()
+        ;
+    }
+
     // /**
     //  * @return Designer[] Returns an array of Designer objects
     //  */

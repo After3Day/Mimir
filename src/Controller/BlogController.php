@@ -19,11 +19,14 @@ use App\Repository\ModeleRepository;
 use App\Repository\ClubRepository;
 use App\Repository\EventRepository;
 use App\Repository\CollectorRepository;
+use App\Repository\DesignerRepository;
 
 Use App\Entity\Modele;
 Use App\Entity\Club;
 Use App\Entity\Event;
 Use App\Entity\Collector;
+Use App\Entity\Designer;
+
 use App\Form\ModeleType;
 use App\Form\ModeleSearchType;
 
@@ -54,6 +57,8 @@ class BlogController extends AbstractController
           $repository = $em->getRepository(Modele::class);
         } elseif( $type === 'Collector') {
           $repository = $em->getRepository(Collector::class);
+        } elseif( $type === 'Designer') {
+          $repository = $em->getRepository(Designer::class);
         }
 
         $results = $repository->findByLetters($search);

@@ -2,7 +2,11 @@
   background-color: #87b0ce !important;
 }
 
-.nav-lin:active, :focus, :hover {
+.nav-link {
+
+}
+
+.nav-link:active, :focus, :hover {
   color: black !important;
 }
 
