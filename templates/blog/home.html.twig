@@ -1,48 +1,38 @@
-
-
 {% extends 'base.html.twig' %}
 
 {% block body %}
-
+<div class="homeBlock">
   <h1>Mimir</h1>
 
   <hr>
-  <div>
-    <form action="" method="post">
-      <div class="form-group" id="test2">
-        <div class="custom-control custom-radio">
-          <input type="radio" id="modele" name="customRadio" class="custom-control-input" value="Modele" checked="">
-          <label class="custom-control-label" for="modele">Modele</label>
-        </div>
-        <div class="custom-control custom-radio">
-          <input type="radio" id="club" name="customRadio" class="custom-control-input" value="Club">
-          <label class="custom-control-label" for="club">Club</label>
-        </div>
-        <div class="custom-control custom-radio">
-          <input type="radio" id="event" name="customRadio" class="custom-control-input" value="Event">
-          <label class="custom-control-label" for="event">Evenement</label>
-        </div>
-        <div class="custom-control custom-radio">
-          <input type="radio" id="collector" name="customRadio" class="custom-control-input" value="Collector">
-          <label class="custom-control-label" for="collector">Collectionneur</label>
-        </div>
-        <div class="custom-control custom-radio">
-          <input type="radio" id="designer" name="customRadio" class="custom-control-input" value="Designer">
-          <label class="custom-control-label" for="designer">Designer</label>
-        </div>
-      </div>
 
-      <div class="input-group mb-3">
-        <div class="from-group">
-          <hr>
-          <input id="searching" />
-          <input type="hidden" id="urlAjax" value="{{path('search')}}"/>
+    <form class="homeForm" action="" method="post">
+      <div class="form-group">
+        <div class="input-group mb-3">
+          <select  id="brandSearch" class="form-control search-form"/>
+            <option value="0">Choisir une marque</option>
+            {% for brand in brands %}
+            <option value="{{brand.id}}">{{brand.brandName}}</option>
+            {% endfor %}
+          </select>
+          <input id="searching" class="form-control search-form"/>
+          <input type="hidden" id="urlAjax" class="form-control" value="{{path('search')}}"/>
+          <div class="input-group-append">
+            <select class="custom-select" id="selTest">
+              <option value="Modele">Modele</option>
+              <option value="Club">Club</option>
+              <option value="Event">Event</option>
+              <option value="Collector">Collector</option>
+              <option value="Designer">Designer</option>
+            </select>
+          </div>
         </div>
       </div>
     </form>
     <hr>
+</div>
     <div id='results'>
     </div>
-  </div>
+
 
 {% endblock %}

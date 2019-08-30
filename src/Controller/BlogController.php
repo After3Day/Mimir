@@ -22,6 +22,7 @@ use App\Repository\CollectorRepository;
 use App\Repository\DesignerRepository;
 
 Use App\Entity\Modele;
+Use App\Entity\Brand;
 Use App\Entity\Club;
 Use App\Entity\Event;
 Use App\Entity\Collector;
@@ -34,34 +35,39 @@ use App\Form\ModeleSearchType;
 class BlogController extends AbstractController
 {
 
+    private $em;
+
+    public function __construct(EntityManagerInterface $em) {
+      $this->em = $em;
+    }
+
     /**
      * @Route("/", name="home")
      */
 
     public function home()
     {
-    	return $this->render('blog/home.html.twig');
+        $brands = $this->em->getRepository(Brand::class)->findAll();
+
+    	return $this->render('blog/home.html.twig', [
+            'brands' => $brands]);
     }
 
     /**
-     * @Route("/search/{type}/{search}", name="search")
+     * @Route("/search/{type}/{brandId}/{search}", name="search")
      *
      */
-    public function searchM(Request $request, EntityManagerInterface $em, $search=null, $type=null) {
+    public function searchM(Request $request, $search=null, $type=null, $brandId=null) {
 
-        if( $type === 'Club') {
-          $repository = $em->getRepository(Club::class);
-        } elseif( $type === 'Event') {
-          $repository = $em->getRepository(Event::class);
-        } elseif( $type === 'Modele') {
-          $repository = $em->getRepository(Modele::class);
-        } elseif( $type === 'Collector') {
-          $repository = $em->getRepository(Collector::class);
-        } elseif( $type === 'Designer') {
-          $repository = $em->getRepository(Designer::class);
+        $repository = $this->em->getRepository("App\Entity\\$type");
+
+        if ($brandId != 0 && $type === 'Modele') {
+            $brand = $this->em->getRepository(Brand::class)->find($brandId);
+        } else {
+            $brand = null;
         }
 
-        $results = $repository->findByLetters($search);
+        $results = $repository->findByLetters($search, $brand);
 
         return $this->render('blog/results.html.twig', [
          'results' => $results,
@@ -70,15 +76,15 @@ class BlogController extends AbstractController
     }
 
     /**
-     * @Route("/result/{id}", name="result")
-     *
+     * @Route("/result/{type}/{id}", name="result")
      */
-    public function resultM(Request $request, ModeleRepository $repo, Modele $modele) {
+    public function resultM(Request $request, $id, $type) {
 
-      $id = $request->get('id');
-      $result = $repo->find($id);
+      $repository = $this->em->getRepository("App\Entity\\$type");
 
-      return $this->render('blog/searchResult.html.twig', [
+      $result = $repository->find($id);
+
+      return $this->render('blog/type/'.$type.'.html.twig', [
          'result' => $result
        ]);
 

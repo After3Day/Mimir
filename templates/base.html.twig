@@ -22,10 +22,10 @@
         <div class="collapse navbar-collapse" id="">
           <ul class="navbar-nav mr-auto">
             <li class="nav-item">
-              <a class="nav-link" href="#">Articles</a>
+              <a class="nav" href="#">Articles</a>
             </li>
             <li class="nav-item">
-              <a class="nav-link" href="#">Nouveau</a>
+              <a class="nav" href="#">Nouveau</a>
             </li>
           </ul>
         </div>
@@ -35,7 +35,11 @@
 		<div class="container">
 			{% block body %}{% endblock %}
 		</div>
-
+    <footer class="footer">
+          <div class="copyright">
+            © 2019 Erwan Pasche
+          </div>
+        </footer>
         {% block javascripts %}
            <script type="text/javascript" src="{{ asset('bundles/fosjsrouting/js/router.js') }}"></script>
  <script type="text/javascript"src="{{ path('fos_js_routing_js', {"callback": "fos.Router.setData"}) }}"></script>
@@ -46,10 +50,7 @@
                 <script src="/build/runtime.js"></script>
                 <script src="/build/app.js"></script> -->
         {% endblock %}
+
     </body>
-    <footer class="footer">
-      <div class="copyright">
-        © 2019 Erwan Pasche
-      </div>
-    </footer>
+
 </html>

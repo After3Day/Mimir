@@ -2,9 +2,15 @@ window.onload = function () {
 
     var urlAjax = $('#urlAjax').val();
 
-    $('.custom-control-input').on('change', function(){
+    $('#selTest').on('change', function() {
         $("#results").html('');
         $("#searching").val('');
+
+        if ($('#selTest').val() != 'Modele') {
+            $('#brandSearch').hide();
+        } else {
+            $('#brandSearch').show();
+        }
     });
 
     // check if input is keyup
@@ -12,22 +18,36 @@ window.onload = function () {
 
         let myString = $('#searching').val();
 
+        let type = $('#selTest').val();
+
+        let brand =$('#brandSearch').val();
+
         if (myString === '') {
             $("#results").html('');
         }
-
-        let type = $('.custom-control-input:checked').val();
 
          if(myString.length > 0 ) {
             $("#results").html('');
              $.ajax({
                  method: "GET",
-                 url: urlAjax+'/'+type+'/'+myString
+                 url: urlAjax+'/'+type+'/'+brand+'/'+myString
              }).done(function( result ) {
                  //do your job
-                 $("#results").append(result);
+                 $("#results").html(result);
              });
          }
     });
 }
+/*
+class SearchItems {
 
+    constructor() {
+
+        this.type = $('#selTest').val();
+        this.myString = $('#searching').val();
+        this.urlAjax = $('#urlAjax').val();
+    }
+
+    search()
+}
+*/
