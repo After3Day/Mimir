@@ -9,13 +9,30 @@
     <form class="homeForm" action="" method="post">
       <div class="form-group">
         <div class="input-group mb-3">
+
           <select  id="brandSearch" class="form-control search-form"/>
             <option value="0">Choisir une marque</option>
             {% for brand in brands %}
             <option value="{{brand.id}}">{{brand.brandName}}</option>
             {% endfor %}
           </select>
-          <input id="searching" class="form-control search-form"/>
+
+          <select  id="nameDesignerSearch" class="form-control search-form"/>
+            <option value="0">Choisir un designer</option>
+              {% for designer in designers %}
+              <option value="{{designer.id}}">{{designer.name}}</option>
+              {% endfor %}
+            </select>
+
+            <select  id="nameCollectorSearch" class="form-control search-form"/>
+            <option value="0">Choisir un collectionneur</option>
+              {% for collector in collectors %}
+              <option value="{{collector.id}}">{{collector.contact.name}}</option>
+              {% endfor %}
+            </select>
+
+          <input id="searching" class="form-control search-form" placeholder="Entrez votre recherche..." />
+
           <input type="hidden" id="urlAjax" class="form-control" value="{{path('search')}}"/>
           <div class="input-group-append">
             <select class="custom-select" id="selTest">

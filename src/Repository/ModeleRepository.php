@@ -19,15 +19,15 @@ class ModeleRepository extends ServiceEntityRepository
         parent::__construct($registry, Modele::class);
     }
 
-    public function findByLetters($value, $brand) {
+    public function findByLetters($value, $test) {
 
         $qb = $this->createQueryBuilder('m')
             ->andWhere('m.modele like :val')
             ->setParameter('val', $value.'%');
 
-            if ($brand) {
+            if ($test) {
                 $qb -> andWhere('m.brand = :brand')
-                    -> setParameter('brand', $brand);
+                    -> setParameter('brand', $test);
             }
 
         return  $qb ->getQuery()

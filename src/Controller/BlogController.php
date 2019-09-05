@@ -49,27 +49,38 @@ class BlogController extends AbstractController
     {
         $brands = $this->em->getRepository(Brand::class)->findAll();
 
+        $designers = $this->em->getRepository(Designer::class)->findAll();
+
+        $collectors = $this->em->getRepository(Collector::class)->findAll();
+
     	return $this->render('blog/home.html.twig', [
-            'brands' => $brands]);
+            'brands' => $brands,
+            'designers' => $designers,
+            'collectors' => $collectors
+        ]);
     }
 
     /**
-     * @Route("/search/{type}/{brandId}/{search}", name="search")
+     * @Route("/search/{type}/{criteria}/{search}", name="search")
      *
      */
-    public function searchM(Request $request, $search=null, $type=null, $brandId=null) {
+    public function searchM(Request $request, $search=null, $type=null, $criteria=null) {
 
         $repository = $this->em->getRepository("App\Entity\\$type");
 
-        if ($brandId != 0 && $type === 'Modele') {
-            $brand = $this->em->getRepository(Brand::class)->find($brandId);
+        if ($criteria != 0 && $type === 'Modele') {
+            $test = $this->em->getRepository(Brand::class)->find($criteria);
+        } else if ($criteria != 0 && $type === 'Collector') {
+            $test = $this->em->getRepository(Collector::class)->find($criteria);
+        } else if ($criteria != 0 && $type === 'Designer') {
+            $test = $this->em->getRepository(Designer::class)->find($criteria);
         } else {
-            $brand = null;
+            $test = null;
         }
 
-        $results = $repository->findByLetters($search, $brand);
+        $results = $repository->findByLetters($search, $test);
 
-        return $this->render('blog/results.html.twig', [
+        return $this->render('blog/type/'.$type.'.html.twig', [
          'results' => $results,
          'type' => $type
        ]);
@@ -84,7 +95,7 @@ class BlogController extends AbstractController
 
       $result = $repository->find($id);
 
-      return $this->render('blog/type/'.$type.'.html.twig', [
+      return $this->render('blog/result/'.$type.'.html.twig', [
          'result' => $result
        ]);
 
