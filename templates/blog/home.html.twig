@@ -10,6 +10,11 @@
       <div class="form-group">
         <div class="input-group mb-3">
 
+
+          <select id="primary" class="form-control search-form">
+
+          </select>
+
           <select  id="brandSearch" class="form-control search-form"/>
             <option value="0">Choisir une marque</option>
             {% for brand in brands %}
@@ -31,11 +36,15 @@
               {% endfor %}
             </select>
 
-          <input id="searching" class="form-control search-form" placeholder="Entrez votre recherche..." />
+          <select id="secondary" class="form-control search-form">
+
+          </select>
+
 
           <input type="hidden" id="urlAjax" class="form-control" value="{{path('search')}}"/>
+
           <div class="input-group-append">
-            <select class="custom-select" id="selTest">
+            <select id="selTest" class="custom-select" >
               <option value="Modele">Modele</option>
               <option value="Club">Club</option>
               <option value="Event">Event</option>
@@ -43,13 +52,15 @@
               <option value="Designer">Designer</option>
             </select>
           </div>
+
         </div>
       </div>
     </form>
     <hr>
 </div>
-    <div id='results'>
-    </div>
+
+<div id='results'>
+</div>
 
 
 {% endblock %}

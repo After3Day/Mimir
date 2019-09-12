@@ -7,9 +7,17 @@ window.onload = function () {
     $('#nameDesignerSearch').hide();
     $('#nameCollectorSearch').hide();
 
-
     $('#brandSearch').on('change', function() {
         cleanUp();
+        let primary = $('#brandSearch').val();
+        $.ajax({
+                 method: "GET",
+                 url: urlAjax+'/'+type+'/'+primary
+             }).done(function( result ) {
+                 //do your job
+                 $("#secondary").html(result);
+             });
+
     });
 
     $('#selTest').on('change', function() {
@@ -22,36 +30,19 @@ window.onload = function () {
 
     });
 
+    $("#secondary").on('change', function() {
 
-
-    $('#searching').on("paste keyup", function () {
-
-        let myString = $('#searching').val();
-        let criteria = $('#brandSearch').val();
-
-        if ( type === 'Designer') {
-            let criteria = $('#nameDesignerSearch').val();
-        } else if ( type === 'Collector') {
-            let criteria = $('#nameCollectorSearch').val();
-        } else {
-            let criteria = '';
-        }
-
-        if (myString === '') {
-            cleanUp();
-        }
-
-         if(myString.length > 0 ) {
-
-             $.ajax({
+        let secondary = $("#secondary").val();
+        let primary = $('#brandSearch').val();
+        $.ajax({
                  method: "GET",
-                 url: urlAjax+'/'+type+'/'+criteria+'/'+myString
+                 url: urlAjax+'/'+type+'/'+primary+'/'+secondary
              }).done(function( result ) {
                  //do your job
                  $("#results").html(result);
              });
-         }
     });
+
 }
 
 function cleanUp() {
@@ -59,6 +50,7 @@ function cleanUp() {
     $("#searching").val('');
     $('#nameSearch').val(0);
     $('#surnameSearch').val('');
+    $('#secondary').html('');
 }
 
 function testSelect() {
@@ -85,8 +77,6 @@ function testSelect() {
         $('#surnameSearch').hide();
     }
 }
-
-
 
 /*
 class SearchItems {

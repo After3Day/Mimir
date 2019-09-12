@@ -80,10 +80,21 @@ class BlogController extends AbstractController
 
         $results = $repository->findByLetters($search, $test);
 
-        return $this->render('blog/type/'.$type.'.html.twig', [
-         'results' => $results,
-         'type' => $type
-       ]);
+        if ($search != '') {
+            return $this->render('blog/type/primary/'.$type.'.html.twig', [
+                'results' => $results,
+                'type' => $type,
+                'search' => $search
+            ]);
+        } else if ($criteria != '') {
+            return $this->render('blog/type/'.$type.'.html.twig', [
+                'results' => $results,
+                'type' => $type,
+                'search' => $search
+            ]);
+        }
+
+
     }
 
     /**
