@@ -1,0 +1,6 @@
+  <select>
+    <option value="0">Choisir une option</option>
+    {% for event in results %}
+    <option value="{{event.id}}">{{ event.EventName}}</option>
+    {% endfor %}
+  </select>

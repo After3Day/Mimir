@@ -1,0 +1,6 @@
+  <select>
+    <option value="0">Choisir une option</option>
+    {% for modele in results.modeles %}
+    <option value="{{modele.id}}">{{ modele.modele }} </option>
+    {% endfor %}
+  </select>

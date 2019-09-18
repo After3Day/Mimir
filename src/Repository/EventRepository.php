@@ -29,6 +29,16 @@ class EventRepository extends ServiceEntityRepository
         ;
     }
 
+    public function findWithPandS($value, $test) {
+
+        return $this->createQueryBuilder('m')
+            ->andWhere('m.id = :id')
+            ->setParameter('id', $value)
+            ->getQuery()
+            ->getOneOrNullResult();
+
+    }
+
     // /**
     //  * @return Event[] Returns an array of Event objects
     //  */

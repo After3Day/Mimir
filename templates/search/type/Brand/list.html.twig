@@ -1,0 +1,6 @@
+  <select>
+    <option value="0">Choisir une option</option>
+    {% for brand in results %}
+    <option value="{{brand.id}}">{{ brand.brandName}}</option>
+    {% endfor %}
+  </select>

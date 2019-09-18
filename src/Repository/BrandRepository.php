@@ -3,6 +3,7 @@
 namespace App\Repository;
 
 use App\Entity\Brand;
+use App\Entity\Modele;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Symfony\Bridge\Doctrine\RegistryInterface;
 
@@ -17,6 +18,22 @@ class BrandRepository extends ServiceEntityRepository
     public function __construct(RegistryInterface $registry)
     {
         parent::__construct($registry, Brand::class);
+    }
+
+    public function findWithPandS($value, $test) {
+
+    return $this->createQueryBuilder('m')
+        ->join(Modele::class, 'mu')
+        ->addSelect('mu')
+        ->andWhere('mu.id = :id')
+        ->andWhere('m.id = :id2')
+        ->setParameter('id', $test)
+        ->setParameter('id2', $value)
+        ->getQuery()
+        ->getResult();
+        /*
+        Use brand.id to get modele where brand id = id
+         */
     }
 
     // /**

@@ -29,6 +29,16 @@ class ClubRepository extends ServiceEntityRepository
         ;
     }
 
+    public function findWithPandS($value, $test) {
+
+        return $this->createQueryBuilder('m')
+            ->andWhere('m.id = :id')
+            ->setParameter('id', $value)
+            ->getQuery()
+            ->getOneOrNullResult();
+
+    }
+
     // /**
     //  * @return Club[] Returns an array of Club objects
     //  */

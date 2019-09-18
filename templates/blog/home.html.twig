@@ -6,52 +6,20 @@
 
   <hr>
 
+    <form class="homeForm" action="{{path('search')}}" method="post">
+      <div class="form-group">
+        <div class="input-group mb-3">
+
+        <button type="submit">Rechercher</button>
+
+        </div>
+      </div>
+    </form>
     <form class="homeForm" action="" method="post">
       <div class="form-group">
         <div class="input-group mb-3">
 
-
-          <select id="primary" class="form-control search-form">
-
-          </select>
-
-          <select  id="brandSearch" class="form-control search-form"/>
-            <option value="0">Choisir une marque</option>
-            {% for brand in brands %}
-            <option value="{{brand.id}}">{{brand.brandName}}</option>
-            {% endfor %}
-          </select>
-
-          <select  id="nameDesignerSearch" class="form-control search-form"/>
-            <option value="0">Choisir un designer</option>
-              {% for designer in designers %}
-              <option value="{{designer.id}}">{{designer.name}}</option>
-              {% endfor %}
-            </select>
-
-            <select  id="nameCollectorSearch" class="form-control search-form"/>
-            <option value="0">Choisir un collectionneur</option>
-              {% for collector in collectors %}
-              <option value="{{collector.id}}">{{collector.contact.name}}</option>
-              {% endfor %}
-            </select>
-
-          <select id="secondary" class="form-control search-form">
-
-          </select>
-
-
-          <input type="hidden" id="urlAjax" class="form-control" value="{{path('search')}}"/>
-
-          <div class="input-group-append">
-            <select id="selTest" class="custom-select" >
-              <option value="Modele">Modele</option>
-              <option value="Club">Club</option>
-              <option value="Event">Event</option>
-              <option value="Collector">Collector</option>
-              <option value="Designer">Designer</option>
-            </select>
-          </div>
+        <button>Ajouter</button>
 
         </div>
       </div>
@@ -59,8 +27,6 @@
     <hr>
 </div>
 
-<div id='results'>
-</div>
 
 
 {% endblock %}

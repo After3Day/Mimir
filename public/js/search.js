@@ -4,39 +4,73 @@ window.onload = function () {
 
     var type = $('#selTest').val();
 
-    $('#nameDesignerSearch').hide();
-    $('#nameCollectorSearch').hide();
+    $('#primary').hide();
+    $('#secondary').hide();
 
-    $('#brandSearch').on('change', function() {
+    $('#selTest').on('change', function() {
         cleanUp();
-        let primary = $('#brandSearch').val();
+        $('#primary').show();
+        $('#secondary').hide();
+
+        type = $('#selTest').val();
+
+
         $.ajax({
                  method: "GET",
-                 url: urlAjax+'/'+type+'/'+primary
+                 url: urlAjax + type
+             }).done(function( result ) {
+                 //do your job
+                 $("#primary").html(result);
+             });
+    });
+
+
+    $('#primary').on('change', function() {
+
+        let primary = $('#primary').val();
+
+        if (type != 'Club' && type != 'Event') {
+            $('#secondary').show();
+
+            $.ajax({
+                 method: "GET",
+                 url: urlAjax + type + '/' + primary
              }).done(function( result ) {
                  //do your job
                  $("#secondary").html(result);
              });
+        } else {
+            $.ajax({
+                 method: "GET",
+                 url: urlAjax + 'result/' + type + '/' + primary
+             }).done(function( result ) {
+                 //do your job
+                 $("#results").html(result);
+             });
+        }
+
+
 
     });
 
-    $('#selTest').on('change', function() {
-        type = $('#selTest').val();
-        $('#brandSearch').val(0);
-        $('#nameCollectorSearch').val(0);
-        $('#nameDesignerSearch').val(0);
-        cleanUp();
-        testSelect();
-
-    });
 
     $("#secondary").on('change', function() {
 
+        let primary = $('#primary').val();
         let secondary = $("#secondary").val();
-        let primary = $('#brandSearch').val();
+
+        if (secondary != null) {
+            if ( type != 'Club' || type != 'Event') {
+                secondary = '/'+ secondary;
+                console.log(secondary);
+            } else {
+                secondary = null;
+            }
+        }
+
         $.ajax({
                  method: "GET",
-                 url: urlAjax+'/'+type+'/'+primary+'/'+secondary
+                 url: urlAjax + 'result/' + type + '/' + primary  + secondary
              }).done(function( result ) {
                  //do your job
                  $("#results").html(result);
@@ -47,47 +81,8 @@ window.onload = function () {
 
 function cleanUp() {
     $("#results").html('');
-    $("#searching").val('');
-    $('#nameSearch').val(0);
-    $('#surnameSearch').val('');
+    $('#primary').html('');
     $('#secondary').html('');
 }
 
-function testSelect() {
-    if ($('#selTest').val() != 'Modele') {
-    $('#brandSearch').hide();
-    $('#nameDesignerSearch').hide();
-    $('#nameCollectorSearch').hide();
-    $('#surnameSearch').hide();
 
-        if($('#selTest').val() != 'Club' && $('#selTest').val() != 'Event') {
-
-            if ($('#selTest').val() != 'Designer') {
-                $('#nameCollectorSearch').show();
-            } else {
-                $('#nameDesignerSearch').show();
-            }
-
-            $('#surnameSearch').show();
-        }
-    } else {
-        $('#brandSearch').show();
-        $('#nameDesignerSearch').hide();
-        $('#nameCollectorSearch').hide();
-        $('#surnameSearch').hide();
-    }
-}
-
-/*
-class SearchItems {
-
-    constructor() {
-
-        this.type = $('#selTest').val();
-        this.myString = $('#searching').val();
-        this.urlAjax = $('#urlAjax').val();
-    }
-
-    search()
-}
-*/

@@ -1,0 +1,6 @@
+  <select>
+    <option value="0">Choisir une option</option>
+    {% for club in results %}
+    <option value="{{club.id}}">{{ club.clubName}}</option>
+    {% endfor %}
+  </select>

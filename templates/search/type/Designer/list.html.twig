@@ -1,0 +1,6 @@
+  <select>
+    <option value="0">Choisir une option</option>
+    {% for designer in results %}
+    <option value="{{designer.id}}">{{ designer.name}}</option>
+    {% endfor %}
+  </select>

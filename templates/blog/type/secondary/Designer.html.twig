@@ -1,9 +1,0 @@
-{% for designer in results %}
-  <div class="card text-white bg-primary mb-3" style="max-width: 20rem;">
-    <div class="card-header"><a class='search-link' href="{{path('home')}}" >{{ designer.name }} {{ designer.surName }} </a></div>
-    <div class="card-body">
-      <h4 class="card-title">{{ designer.name }} {{ designer.surName }}</h4>
-      <p>{{type}}</p>
-    </div>
-  </div>
-{% endfor %}
