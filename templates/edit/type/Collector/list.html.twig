@@ -1,0 +1,6 @@
+  <select>
+    <option value="0">Choisir une option</option>
+    {% for collector in results %}
+    <option value="{{collector.id}}">{{ collector.contact.name }} {{ collector.contact.surName }}</option>
+    {% endfor %}
+  </select>

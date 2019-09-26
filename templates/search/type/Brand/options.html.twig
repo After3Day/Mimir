@@ -1,5 +1,9 @@
-  <select>
-    <option value="0">Choisir une option</option>
+  <style>
+select:invalid { color: gray; }
+</style>
+
+  <select placeholder="Choisir une option">
+    <option value="0"  >Please Choose...</option>
     {% for modele in results.modeles %}
     <option value="{{modele.id}}">{{ modele.modele }} </option>
     {% endfor %}

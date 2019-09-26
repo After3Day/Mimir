@@ -19,14 +19,8 @@ class ClubRepository extends ServiceEntityRepository
         parent::__construct($registry, Club::class);
     }
 
-    public function findByLetters($value) {
-
-        return $this->createQueryBuilder('m')
-            ->andWhere('m.clubName like :val')
-            ->setParameter('val', $value.'%')
-            ->getQuery()
-            ->getResult()
-        ;
+    public function findAll() {
+        return $this->findBy(array(), array('clubName' => 'ASC'));
     }
 
     public function findWithPandS($value, $test) {

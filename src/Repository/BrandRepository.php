@@ -20,17 +20,20 @@ class BrandRepository extends ServiceEntityRepository
         parent::__construct($registry, Brand::class);
     }
 
+    public function findAll() {
+        return $this->findBy(array(), array('brandName' => 'ASC'));
+    }
+
     public function findWithPandS($value, $test) {
 
     return $this->createQueryBuilder('m')
         ->join(Modele::class, 'mu')
-        ->addSelect('mu')
         ->andWhere('mu.id = :id')
         ->andWhere('m.id = :id2')
         ->setParameter('id', $test)
         ->setParameter('id2', $value)
         ->getQuery()
-        ->getResult();
+        ->getOneOrNullResult();
         /*
         Use brand.id to get modele where brand id = id
          */

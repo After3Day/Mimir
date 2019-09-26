@@ -22,7 +22,6 @@ class DesignerType extends AbstractType
             ->add('surname')
             ->add('alive')
             ->add('wikiLink')
-            ->add('modeles')
         ;
     }
 

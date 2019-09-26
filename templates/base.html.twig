@@ -15,7 +15,7 @@
     <body>
     <header>
       <nav class="navbar navbar-expand-lg navbar-dark bg-primary">
-        <a class="navbar-brand" href="#">SymBlog</a>
+        <a class="navbar-brand" href="{{path('home')}}">SymBlog</a>
         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="" aria-controls="" aria-expanded="false" aria-label="Toggle navigation">
           <span class="navbar-toggler-icon"></span>
         </button>
@@ -40,15 +40,16 @@
             © 2019 Erwan Pasche
           </div>
         </footer>
-        {% block javascripts %}
-           <script type="text/javascript" src="{{ asset('bundles/fosjsrouting/js/router.js') }}"></script>
- <script type="text/javascript"src="{{ path('fos_js_routing_js', {"callback": "fos.Router.setData"}) }}"></script>
+
+          <script type="text/javascript" src="{{ asset('bundles/fosjsrouting/js/router.js') }}"></script>
+          <script type="text/javascript"src="{{ path('fos_js_routing_js', {"callback": "fos.Router.setData"}) }}"></script>
           <script src="https://code.jquery.com/jquery-3.3.1.min.js" integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8=" crossorigin="anonymous"></script>
           {{ encore_entry_script_tags('app') }}
 
             <!-- Renders app.js & a webpack runtime.js file
                 <script src="/build/runtime.js"></script>
                 <script src="/build/app.js"></script> -->
+        {% block javascripts %}
         {% endblock %}
 
     </body>

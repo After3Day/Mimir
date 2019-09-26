@@ -39,7 +39,7 @@ class Designer
     private $wikiLink;
 
     /**
-     * @ORM\ManyToMany(targetEntity="App\Entity\Modele", mappedBy="designers")
+     * @ORM\ManyToMany(targetEntity="App\Entity\Modele", mappedBy="designers", cascade={"persist"})
      */
     private $modeles;
 

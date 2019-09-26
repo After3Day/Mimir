@@ -1,3 +1,10 @@
+li {
+  list-style-type: none;
+}
+#test3 {
+  display: none;
+}
+
 * {
   box-sizing: border-box;
 }

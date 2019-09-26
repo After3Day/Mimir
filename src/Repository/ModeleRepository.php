@@ -19,20 +19,24 @@ class ModeleRepository extends ServiceEntityRepository
         parent::__construct($registry, Modele::class);
     }
 
-    public function findByLetters($value, $test) {
+    public function findWithPandS($value, $secondary) {
 
-        $qb = $this->createQueryBuilder('m')
-            ->andWhere('m.modele like :val')
-            ->setParameter('val', $value.'%');
+    return $this->createQueryBuilder('m')
+        ->andWhere('m.id = :id')
+        ->setParameter('id', $secondary)
+        ->getQuery()
+        ->getOneOrNullResult();
+    }
 
-            if ($test) {
-                $qb -> andWhere('m.brand = :brand')
-                    -> setParameter('brand', $test);
-            }
+    public function findWithNumber($criteria=null, $val=null) {
 
-        return  $qb ->getQuery()
-            ->getResult()
-        ;
+        $qb = $this->createQueryBuilder('m');
+
+        $qb->andWhere('m.'.$criteria.'like :val')
+            ->setParameter('val', $val.'%');
+
+        return $qb->getQuery()
+                ->getResult();
     }
 
     // /**

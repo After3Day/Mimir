@@ -20,22 +20,18 @@ class CollectorRepository extends ServiceEntityRepository
         parent::__construct($registry, Collector::class);
     }
 
-    public function findByLetters($value, $test) {
 
-        $qb = $this->createQueryBuilder('m')
+
+    public function findWithPandS($value, $test) {
+
+        return $this->createQueryBuilder('m')
             ->join('m.contact', 'mu')
-            ->addSelect('mu')
-            ->andWhere('mu.surname like :val')
-            ->setParameter('val', $value.'%');
+            ->andWhere('m.id = :id')
+            ->setParameter('id', $value)
+            ->orderBy('mu.surname', 'ASC')
+            ->getQuery()
+            ->getOneOrNullResult();
 
-            if ($test) {
-                $qb -> andWhere('mu.name = :name')
-                    -> setParameter('mu.name', $test);
-            }
-
-        return  $qb ->getQuery()
-            ->getResult()
-        ;
     }
 
     // /**

@@ -57,7 +57,7 @@ class Media
     private $language;
 
     /**
-     * @ORM\ManyToOne(targetEntity="App\Entity\Modele", inversedBy="medias")
+     * @ORM\ManyToOne(targetEntity="App\Entity\Modele", inversedBy="medias", cascade={"persist"})
      */
     private $modele;
 

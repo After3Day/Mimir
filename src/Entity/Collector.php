@@ -25,7 +25,7 @@ class Collector
     private $contact;
 
     /**
-     * @ORM\ManyToMany(targetEntity="App\Entity\Modele", mappedBy="collectors")
+     * @ORM\ManyToMany(targetEntity="App\Entity\Modele", mappedBy="collectors", cascade={"persist"})
      */
     private $modeles;
 

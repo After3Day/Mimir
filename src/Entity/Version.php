@@ -2,7 +2,10 @@
 
 namespace App\Entity;
 
+use Symfony\Component\Form\FormTypeInterface;
+
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Validator\Constraints as Assert;
 
 /**
  * @ORM\Entity(repositoryClass="App\Repository\VersionRepository")
@@ -22,8 +25,10 @@ class Version
     private $versionName;
 
     /**
-     * @ORM\ManyToOne(targetEntity="App\Entity\Modele", inversedBy="versions")
+     * @ORM\ManyToOne(targetEntity="App\Entity\Modele", inversedBy="versions", cascade={"persist"})
      * @ORM\JoinColumn(nullable=false)
+     * @Assert\Type(type="App\Entity\Modele")
+     * @Assert\Valid
      */
     private $modele;
 

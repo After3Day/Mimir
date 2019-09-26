@@ -1,0 +1,25 @@
+<h1>Création d'un article</h1>
+
+{{ form_start(formModele, {'action': path('edit_modele'), 'method': 'POST' }) }}
+
+  {{ form_row(formModele.brand) }}
+
+  {{ form_row(formModele.modele) }}
+
+<h3>Versions</h3>
+    <ul class="versions" data-prototype="{{ form_widget(formModele.versions.vars.prototype)|e('html_attr') }}">
+      {% for version in formModele.versions %}
+      {% endfor %}
+    </ul>
+<h3>Designers</h3>
+    <ul class="designers" data-prototype="{{ form_widget(formModele.designers.vars.prototype)|e('html_attr') }}">
+      {% for designer in formModele.designers %}
+      {% endfor %}
+    </ul>
+  {{ form_row(formModele.save) }}
+
+{{ form_end(formModele) }}
+
+{% block javascripts %}
+  <script type="text/javascript" src="{{ asset('js/edit2.js') }}"></script>
+{% endblock %}

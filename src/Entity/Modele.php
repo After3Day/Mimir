@@ -5,6 +5,7 @@ namespace App\Entity;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Validator\Constraints as Assert;
 
 /**
  * @ORM\Entity(repositoryClass="App\Repository\ModeleRepository")
@@ -19,35 +20,56 @@ class Modele
     private $id;
 
     /**
-     * @ORM\OneToMany(targetEntity="App\Entity\Version", mappedBy="modele", orphanRemoval=true)
+     * @ORM\OneToMany(targetEntity="App\Entity\Version", mappedBy="modele", orphanRemoval=true, cascade={"persist", "remove"})
      */
     private $versions;
 
     /**
-     * @ORM\ManyToMany(targetEntity="App\Entity\Collector", inversedBy="modeles")
+     * @ORM\ManyToMany(targetEntity="App\Entity\Collector", inversedBy="modeles", cascade={"persist"})
      */
     private $collectors;
 
     /**
-     * @ORM\ManyToMany(targetEntity="App\Entity\Designer", inversedBy="modeles")
+     * @ORM\ManyToMany(targetEntity="App\Entity\Designer", inversedBy="modeles", cascade={"persist", "remove"})
      */
     private $designers;
 
     /**
-     * @ORM\OneToMany(targetEntity="App\Entity\Media", mappedBy="modele")
+     * @ORM\OneToMany(targetEntity="App\Entity\Media", mappedBy="modele", cascade={"persist"})
      */
     private $medias;
 
     /**
      * @ORM\Column(type="string", length=255)
+     * @Assert\NotBlank
      */
     private $modele;
 
     /**
-     * @ORM\ManyToOne(targetEntity="App\Entity\Brand", inversedBy="modeles")
+     * @ORM\ManyToOne(targetEntity="App\Entity\Brand", inversedBy="modeles", cascade={"persist"})
      * @ORM\JoinColumn(nullable=false)
      */
     private $brand;
+
+    /**
+     * @ORM\Column(type="string", length=255, nullable=true)
+     */
+    private $engine;
+
+    /**
+     * @ORM\Column(type="string", length=255, nullable=true)
+     */
+    private $gearbox;
+
+    /**
+     * @ORM\Column(type="string", length=255, nullable=true)
+     */
+    private $frame;
+
+    /**
+     * @ORM\Column(type="string", length=255, nullable=true)
+     */
+    private $identification;
 
     public function __construct()
     {
@@ -74,8 +96,8 @@ class Modele
     public function addVersion(Version $version): self
     {
         if (!$this->versions->contains($version)) {
-            $this->versions[] = $version;
-            $version->setModeles($this);
+            $this->versions->add($version);
+            $version->setModele($this);
         }
 
         return $this;
@@ -197,6 +219,54 @@ class Modele
     public function setBrand(?Brand $brand): self
     {
         $this->brand = $brand;
+
+        return $this;
+    }
+
+    public function getEngine(): ?string
+    {
+        return $this->engine;
+    }
+
+    public function setEngine(?string $engine): self
+    {
+        $this->engine = $engine;
+
+        return $this;
+    }
+
+    public function getGearbox(): ?string
+    {
+        return $this->gearbox;
+    }
+
+    public function setGearbox(?string $gearbox): self
+    {
+        $this->gearbox = $gearbox;
+
+        return $this;
+    }
+
+    public function getFrame(): ?string
+    {
+        return $this->frame;
+    }
+
+    public function setFrame(?string $frame): self
+    {
+        $this->frame = $frame;
+
+        return $this;
+    }
+
+    public function getIdentification(): ?string
+    {
+        return $this->identification;
+    }
+
+    public function setIdentification(?string $identification): self
+    {
+        $this->identification = $identification;
 
         return $this;
     }

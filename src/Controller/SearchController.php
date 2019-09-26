@@ -39,7 +39,9 @@ class SearchController extends AbstractController
     private $em;
 
     public function __construct(EntityManagerInterface $em) {
-      $this->em = $em;
+
+        $this->em = $em;
+
     }
 
     /**
@@ -57,7 +59,7 @@ class SearchController extends AbstractController
      * @Route("/{type}", name="search_primary")
      *
      */
-    public function searchByType(Request $request, $type=null) { // Retourne les options primaires
+    public function searchByType(Request $request, $type=null) {
 
         $repository = $this->em->getRepository("App\Entity\\$type");
         $results = $repository->findAll();
@@ -72,11 +74,11 @@ class SearchController extends AbstractController
      * @Route("/{type}/{primary}", name="search_secondary")
      *
      */
-    public function searchByPrimary(Request $request, $type=null, $primary=null) { // Retourne les options secondaires
+    public function searchByPrimary(Request $request, $type=null, $primary=null) {
 
         $repository = $this->em->getRepository("App\Entity\\$type");
 
-        $results = $repository->findOneBy(['id' => $primary]);
+        $results = $repository->findOneBy(array('id' => $primary));
 
 
         return $this->render('search/type/'.$type.'/options.html.twig', [
@@ -89,12 +91,11 @@ class SearchController extends AbstractController
      * @Route("/result/{type}/{primary}/{secondary}", name="search_result")
      *
      */
-    public function searchBySecondary(Request $request, $type=null, $primary=null, $secondary=null) { // Retourne le resultat de la recherche
-         $repository = $this->em->getRepository("App\Entity\\$type");
-         $result = $repository->findWithPandS($primary, $secondary); // findByPandS($primary, $secondary)
+    public function searchBySecondary(Request $request, $type=null, $primary=null, $secondary=null) {
 
-         dump($result);
-         exit;
+        $repository = $this->em->getRepository("App\Entity\\$type");
+        $result = $repository->findWithPandS($primary, $secondary);
+
         return $this->render('search/type/'.$type.'/result.html.twig', [
                 'result' => $result,
                 'type' => $type,
