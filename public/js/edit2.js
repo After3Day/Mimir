@@ -21,6 +21,7 @@ jQuery(document).ready(function() {
     $collectionHolder.append($newLinkLi);
     $collection2Holder.append($newLink2Li);
 
+
     // count the current form inputs we have (e.g. 2), use that as the new
     // index when inserting a new item (e.g. 2)
     $collectionHolder.data('index', $collectionHolder.find(':input').length);
@@ -34,6 +35,22 @@ jQuery(document).ready(function() {
         // add a new tag form (see next code block)
         addTagForm($collection2Holder, $newLink2Li);
     });
+
+    $('#addDesigner').click( function() {
+        let type = $('#editTest :selected').val();
+        console.log(type);
+        $.ajax({
+                 method: "GET",
+                 url: 'Designer/'
+             }).done(function( result ) {
+                $("#testModal").html(result);
+                document.getElementById('Add2').style.display = 'none';
+
+
+             });
+    });
+
+
 });
 
 function addTagForm($collectionHolder, $newLinkLi) {
@@ -52,4 +69,15 @@ function addTagForm($collectionHolder, $newLinkLi) {
     var $newFormLi = $('<li></li>').append(newForm);
 
     $newLinkLi.before($newFormLi);
+     addTagFormDeleteLink($newFormLi);
+}
+
+function addTagFormDeleteLink($tagFormLi) {
+    var $removeFormButton = $('<button type="button">Delete this tag</button>');
+    $tagFormLi.append($removeFormButton);
+
+    $removeFormButton.on('click', function(e) {
+        // remove the li for the tag form
+        $tagFormLi.remove();
+    });
 }

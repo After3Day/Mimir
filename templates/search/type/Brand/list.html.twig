@@ -1,6 +1,17 @@
-  <select>
-    <option value="0">Choisir une option</option>
+<div class="input-field col s12 m6">
+  <select id="testInTest">
+    <option value="0" disabled selected>Choisir une marque</option>
     {% for brand in results %}
     <option value="{{brand.id}}">{{ brand.brandName}}</option>
     {% endfor %}
   </select>
+  <label>Marque</label>
+</div>
+
+<script type="text/javascript">
+  $(document).ready(function() {
+  $('select').formSelect();
+});
+
+</script>
+

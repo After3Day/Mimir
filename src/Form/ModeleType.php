@@ -50,16 +50,42 @@ class ModeleType extends AbstractType
                 'entry_type' => VersionType::class,
                 'entry_options' => ['label' => false],
                 'allow_add' => true,
+                'allow_delete' => true,
                 'label' => false,
                 'prototype' => true,
                 'by_reference' => false])
-            ->add('designers', CollectionType::class, [
+            ->add('designers', EntityType::class, [
+                'class' => Designer::class,
+                'query_builder' => function (EntityRepository $er){
+                    return $er->createQueryBuilder('b')
+                        ->orderBy('b.name', 'ASC');
+                },
+                'label' => 'Designer',
+                'choice_label' => 'name'])
+            ->add('collectors', EntityType::class, [
+                'class' => Collector::class,
+                'query_builder' => function (EntityRepository $er){
+                    return $er->createQueryBuilder('b')
+                        ->join('b.contact' , 'bc')
+                        ->orderBy('bc.name', 'ASC');
+                },
+                'label' => 'Collector',
+                'choice_label' => 'contact.name'])
+            /*->add('designers', [CollectionType::class, [
                 'entry_type' => DesignerType::class,
                 'entry_options' => ['label' => false],
                 'allow_add' => true,
                 'label' => false,
                 'prototype' => true,
-                'by_reference' => false])
+                'by_reference' => false],
+            EntityType::class, [
+                'class' => Designer::class,
+                'query_builder' => function (EntityRepository $er){
+                    return $er->createQueryBuilder('b')
+                        ->orderBy('b.name', 'ASC');
+                },
+                'label' => 'Designer',
+                'choice_label' => 'name']])*/
             // médias
             // collector
             ->add('save', SubmitType::class, ['label' => 'Enregister'])

@@ -1,37 +1,36 @@
 {% extends 'base.html.twig' %}
-
 {% block body %}
-<div class="homeBlock">
-  <h1>Mimir</h1>
 
-  <hr>
-
-    <form class="homeForm" action="" method="post">
-      <div class="form-group">
-        <div class="input-group mb-3">
-          <input type="hidden" id="urlAjax" class="form-control" value="{{path('edit')}}"/>
-
-          <div class="input-group-append">
-            <select id="editTest" class="custom-select" >
-              <option value="0">Choisir une option</option>
-              <option value="Brand">Voiture</option>
-              <option value="Club">Club</option>
-              <option value="Event">Event</option>
-              <option value="Collector">Collector</option>
-              <option value="Designer">Designer</option>
-            </select>
-          </div>
-
+  <div class="">
+    <h1 class="center">Mimir</h1>
+      <div class="row">
+    <div class="col s12 ">
+      <div class="row">
+        <div class="input-field col s12">
+          <select id="editTest">
+            <option value="0" disabled selected>Choisir une option</option>
+            <option value="Brand">Voiture</option>
+            <option value="Club">Club</option>
+            <option value="Event">Event</option>
+            <option value="Collector">Collector</option>
+            <option value="Designer">Designer</option>
+          </select>
+          <label>Critère de recherche</label>
         </div>
       </div>
-    </form>
-    <hr>
-</div>
+      <input type="hidden" id="urlAjax" class="form-control" value="{{path('edit')}}"/>
+    </div>
+  </div>
+  </div>
 
-<div id="edit"></div>
-
+  <div class="row">
+      <div id="edit"></div>
+    </div>
+  </div>
 {% endblock %}
 
 {% block javascripts %}
   <script type="text/javascript" src="{{ asset('js/edit.js') }}"></script>
 {% endblock %}
+
+

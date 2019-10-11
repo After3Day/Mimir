@@ -102,4 +102,18 @@ class SearchController extends AbstractController
                 'secondary' => $secondary
             ]);
     }
+
+    /**
+     * @Route("/numbers/{criteria}/{myString}", name="search_result_numbers")
+     *
+     */
+    public function searchByNumbers(Request $request, $criteria=null, $myString=null) {
+
+        $repository = $this->em->getRepository("App\Entity\Modele");
+        $result = $repository->findWithNumber($criteria, $myString);
+
+        return $this->render('search/type/Modele/result.html.twig', [
+                'result' => $result
+            ]);
+    }
 }

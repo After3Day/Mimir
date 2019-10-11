@@ -1,10 +1,17 @@
-  <style>
-select:invalid { color: gray; }
-</style>
-
-  <select placeholder="Choisir une option">
-    <option value="0"  >Please Choose...</option>
+<div class="input-field col s12 m6">
+  <select id="testInTest">
+    <option value="0" disabled selected >Choisir un modèle</option>
     {% for modele in results.modeles %}
     <option value="{{modele.id}}">{{ modele.modele }} </option>
     {% endfor %}
   </select>
+  <label>Modele</label>
+</div>
+
+<script type="text/javascript">
+$(document).ready(function() {
+  $('select').formSelect();
+});
+</script>
+
+

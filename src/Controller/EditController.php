@@ -63,11 +63,8 @@ class EditController extends AbstractController
 
     /**
      * @Route("/Brand/", name="edit_modele")
-     *
-     *
-     *
      */
-    public function editModele(Modele $modele = null, Request $request, ObjectManager $manager, $type = null) {
+    public function editModele(Modele $modele = null, Request $request, ObjectManager $manager) {
 
         $modele = new Modele();
 
@@ -85,8 +82,35 @@ class EditController extends AbstractController
         }
 
             return $this->render('edit/type/Brand/show.html.twig', [
-            'formModele' => $form->createView(),
-            'type' => $type
+            'formModele' => $form->createView()
+        ]);
+    }
+
+    /**
+     * @Route("/Designer/", name="edit_designer")
+     */
+    public function editDesigner(Designer $designer = null, Request $request, ObjectManager $manager, $type = null) {
+
+
+        $designer = new Designer();
+
+        $form = $this->createForm(DesignerType::class, $designer);
+
+        $form->handleRequest($request);
+
+
+
+        if ($form->isSubmitted() && $form->isValid()) {
+
+            $entityManager = $this->getDoctrine()->getManager();
+            $entityManager->persist($designer);
+            $entityManager->flush();
+
+            return $this->redirectToRoute('edit');
+        }
+
+            return $this->render('edit/type/Designer/show.html.twig', [
+            'formDesigner' => $form->createView()
         ]);
     }
 

@@ -1,32 +1,20 @@
 {% extends 'base.html.twig' %}
-
 {% block body %}
-<div class="homeBlock">
-  <h1>Mimir</h1>
-
-  <hr>
-
-    <form class="homeForm" action="{{path('search')}}" method="post">
-      <div class="form-group">
-        <div class="input-group mb-3">
-
-        <button type="submit">Rechercher</button>
-
-        </div>
+  <div class="row">
+    <div class="col s12">
+      <h2 class="center">Bienvenue sur Mimir !</h2>
+    </div>
+  </div>
+    <div class="row valign-wrapper">
+      <div class="input-field col s6 center">
+        <form  action="{{path('search')}}" method="post">
+          <button type="submit" class="btn-large waves-effect waves-test waves-light" type="submit"><i class="material-icons left">search</i>Rechercher</button>
+        </form>
       </div>
-    </form>
-    <form class="homeForm" action="{{path('edit')}}" method="post">
-      <div class="form-group">
-        <div class="input-group mb-3">
-
-        <button>Ajouter</button>
-
-        </div>
+      <div class="input-field col s6 center">
+        <form action="{{path('edit')}}" method="post">
+          <button type="submit" class="btn-large waves-effect waves-test waves-light"><i class="material-icons right">add_circle_outline</i>Ajouter</button>
+        </form>
       </div>
-    </form>
-    <hr>
-</div>
-
-
-
+    </div>
 {% endblock %}

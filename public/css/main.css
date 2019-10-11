@@ -1,98 +1,63 @@
 li {
   list-style-type: none;
 }
-#test3 {
-  display: none;
-}
 
-* {
-  box-sizing: border-box;
-}
-html {
-  height: 100%;
-}
-body {
-  display: flex;
-  flex-direction: column;
-  height: 100vh; /* Avoid the IE 10-11 `min-height` bug. */
-}
-
-.bg-primary {
+.bg-primary, .page-footer {
   background-color: #87b0ce !important;
 }
-
-.nav {
-  color: #9d504d;
-  padding-left: 10px;
-  padding-right: 10px;
-}
-
-.nav:hover {
-  text-decoration: none;
-  color: #d6b827;
-}
-
-.container input:checked ~ .checkmark {
-  background-color: #2196F3;
-}
-
-.search-link {
-  color:black !important;
-}
-
-.btn {
-  background-color: #243d78;
-  border-color:  #87b0ce;
-}
-
-.btn:hover {
-  background-color: #87b0ce;
-  border-color:  #243d78;
-}
-
-
-.copyright {
-  margin: auto;
-}
-
-.research-dot {
-  display:flex !important;
-  justify-content: space-around !important;
-  flex-wrap: wrap !important;
-}
-
-.custom-radio {
-  color: #9d504d;
-  border-radius: 45px;
-  background-color: #87b0ce;
-  font-weight: bold;
-  padding: 10px !important;
-  padding-left: 30px !important;
-  padding-right: 10px !important;
-}
-
-.custom-radio:hover, .custom-control-input:hover, .research-dot:hover {
-  color: #d6b827 !important;
-}
-
-.from-group {
-  display: flex;
-}
-
-.search-form{
-  flex-direction: row;
-  justify-content: space-around;
-  max-width: 25vw;
-  padding: 5px;
+.footer-copyright {
+  margin:auto;
+  font-size: 18px;
 }
 
 .container {
   flex: 1 0 auto;
   padding: 20px;
 }
-.footer {
-  flex-shrink: 0;
-  padding: 20px;
-  text-align: center !important;
-  background-color: #87b0ce !important;
+
+.noMarg {
+  margin: 0;
+}
+
+body {
+  display: flex;
+  min-height: 100vh;
+  flex-direction: column;
+
+}
+
+main {
+  flex: 1 0 auto;
+}
+
+.auto {
+  background-color: white;
+}
+
+.btn-large {
+  font-weight: bold;
+  font-size: 24px;
+  background-color: #87b0ce;
+}
+
+.btn-large:hover {
+  background-color: #90bdde;
+}
+
+.waves-effect.waves-test .waves-ripple {
+ /* The alpha value allows the text and background color
+ of the button to still show through. */
+  background-color: rgba(214, 184, 39, 0.65);
+}
+
+.red-hr {
+  border-top: 1px solid rgba(214, 184, 39, 0.65);
+}
+
+.card-title {
+  font-weight: bold !important;
+}
+
+fieldset {
+  border: none;
 }

@@ -1,9 +1,20 @@
+<!-- if à ajouter si besoin -->
 
-  <div class="card text-white bg-primary mb-3" style="max-width: 20rem;">
-    <div class="card-header">{{ result.contact.name }} {{ result.contact.surName }}</div>
+<div class="card mb-3">
+
+  <h3 class="card-header" >{{ result.contact.name }} {{ result.contact.surName }}</h3>
+
+  <hr class="red-hr">
+
+  {% if result.contact.name %}
+    <hr class="red-hr">
     <div class="card-body">
-      <h4 class="card-title"></h4>
-      <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
-      <p>{{type}}</p>
+      <h5 class="card-title">Modèles : </h5>
+      {% for modele in result.modeles %}
+        <ul class="list-group list-group-flush">
+        <li class="list-group-item">{{ modele.modele}}</li>
+        </ul>
+      {% endfor %}
     </div>
-  </div>
+  {% endif %}
+</div>

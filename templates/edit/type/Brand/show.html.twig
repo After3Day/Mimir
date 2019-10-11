@@ -1,4 +1,4 @@
-<h1>Création d'un article</h1>
+<h3>Création d'un article</h3>
 
 {{ form_start(formModele, {'action': path('edit_modele'), 'method': 'POST' }) }}
 
@@ -6,20 +6,53 @@
 
   {{ form_row(formModele.modele) }}
 
-<h3>Versions</h3>
+  <h6>Versions</h6>
     <ul class="versions" data-prototype="{{ form_widget(formModele.versions.vars.prototype)|e('html_attr') }}">
       {% for version in formModele.versions %}
       {% endfor %}
     </ul>
-<h3>Designers</h3>
-    <ul class="designers" data-prototype="{{ form_widget(formModele.designers.vars.prototype)|e('html_attr') }}">
-      {% for designer in formModele.designers %}
-      {% endfor %}
-    </ul>
+
+  {{ form_row(formModele.designers) }}
+
+
+
+
+  {{ form_row(formModele.collectors) }}
+
   {{ form_row(formModele.save) }}
 
 {{ form_end(formModele) }}
 
+<a id="addDesigner" class="waves-effect waves-light btn modal-trigger" href="#addDes">Ajouter un Designer</a>
+  <div id="addDes" class="modal">
+    <div class="modal-content" id="testModal">
+    </div>
+    <div class="modal-footer">
+      <button id="AddDbb" class="btn waves-effect modal-close waves-test waves-light" formnovalidate>Ajouter</button>
+    </div>
+  </div>
+
+
+<script type="text/javascript">
+$(document).ready(function() {
+
+    $('#AddDbb').click( function() {
+
+      $.ajax({
+        type: "POST",
+        url: "Designer/",
+        data: $('#form_person_edit').serialize(),
+        success: function() {
+          alert('Designer bien enregistré !');
+        }
+      });
+    });
+  $('.modal').modal();
+  $('select').formSelect();
+});
+</script>
+
 {% block javascripts %}
   <script type="text/javascript" src="{{ asset('js/edit2.js') }}"></script>
 {% endblock %}
+

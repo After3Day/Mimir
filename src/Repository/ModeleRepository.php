@@ -32,11 +32,11 @@ class ModeleRepository extends ServiceEntityRepository
 
         $qb = $this->createQueryBuilder('m');
 
-        $qb->andWhere('m.'.$criteria.'like :val')
+        $qb->andWhere('m.'.$criteria.' like :val')
             ->setParameter('val', $val.'%');
 
         return $qb->getQuery()
-                ->getResult();
+                ->getOneOrNullResult();
     }
 
     // /**

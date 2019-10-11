@@ -1,6 +1,15 @@
-  <select>
-    <option value="0">Choisir une option</option>
+<div class="input-field col s12">
+  <select id="testInTest">
+    <option value="0" disabled selected >Choisir un designer</option>
     {% for designer in results %}
     <option value="{{designer.id}}">{{ designer.name}} {{ designer.surName}}</option>
     {% endfor %}
   </select>
+  <label>Designers</label>
+</div>
+
+<script type="text/javascript">
+$(document).ready(function() {
+  $('select').formSelect();
+});
+</script>

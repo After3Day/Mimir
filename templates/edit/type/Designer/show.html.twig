@@ -1,5 +1,13 @@
-<h1>Création d'un article</h1>
-
-{{ form_start(formDesigner) }}
-<button type="submit" class="btn btn-success">Ajouter l'article</button>
+<h4>Ajout d'un désigner</h4>
+{{ form_start(formDesigner, {'attr': {'id': 'form_person_edit', 'action': path('edit_designer'), 'method': 'POST' }}) }}
+  {{ form_row(formDesigner.name, {
+  'label': 'Nom'
+  }) }}
+  {{ form_row(formDesigner.surname, {
+  'label': 'Prénom'
+  }) }}
+  {{ form_row(formDesigner.wikiLink, {
+  'label': "Lien l'article wikipédia"
+  }) }}
+  <button id="Add2" class="btn waves-effect modal-close waves-test waves-light">Ajouter</button>
 {{ form_end(formDesigner) }}

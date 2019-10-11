@@ -20,7 +20,6 @@ class DesignerType extends AbstractType
         $builder
             ->add('name')
             ->add('surname')
-            ->add('alive')
             ->add('wikiLink')
         ;
     }

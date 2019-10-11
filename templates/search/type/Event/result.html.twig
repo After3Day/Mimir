@@ -1,9 +1,41 @@
+<!-- if à ajouter si besoin -->
 
-  <div class="card text-white bg-primary mb-3" style="max-width: 20rem;">
-    <div class="card-header"><a class='search-link' href="{{path('home')}}" > {{ result.eventName }} </a></div>
-    <div class="card-body">
-      <h4 class="card-title">{{ result.eventName }}</h4>
-      <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
-      <p>{{type}}</p>
-    </div>
+<div class="card mb-3">
+
+  <h3 class="card-header" >{{ result.eventName }}</h3>
+
+  <hr class="red-hr">
+
+  <div class="card-body">
+    <h5 class="card-title">Date de l'event : {{ result.eventDate|date("m/d/Y") }}</h5>
   </div>
+
+  <hr class="red-hr">
+
+  <div class="card-body">
+  <h5 class="card-title">Addresse :</h5>
+    <ul class="list-group list-group-flush">
+      <li class="list-group-item"><h6 class="mb-1">Pays : </h6> {{ result.address.country }}</li>
+      <li class="list-group-item"><h6 class="mb-1">Ville : </h6> {{ result.address.city }} {{ result.address.zipCode }}</li>
+      <li class="list-group-item"><h6 class="mb-1">Rue : </h6> {{ result.address.street }} {{ result.address.streetNumber }}</li>
+    </ul>
+  </div>
+
+  <hr class="red-hr">
+
+  <div class="card-body">
+    <h5 class="card-title">Personne de contact :</h5>
+    <ul class="list-group list-group-flush">
+      <li class="list-group-item">{{ result.contact.name }} {{ result.contact.surName }}</li>
+      <li class="list-group-item"><h6 class="mb-1">N° de téléphone : </h6> {{ result.contact.phoneNumber }}</li>
+      <li class="list-group-item"><h6 class="mb-1">Email : </h6> {{ result.contact.email }}</li>
+      <li class="list-group-item"><h6 class="mb-1">Site web : </h6> {{ result.contact.webLink }}</li>
+      <ul>
+        <li class="list-group-item"><h6 class="mb-1">Pays : </h6> {{ result.contact.address.country }}</li>
+        <li class="list-group-item"><h6 class="mb-1">Ville : </h6> {{ result.contact.address.city }} {{ result.contact.address.zipCode }}</li>
+        <li class="list-group-item"><h6 class="mb-1">Rue : </h6> {{ result.contact.address.street }} {{ result.contact.address.streetNumber }}</li>
+      </ul>
+    </ul>
+  </div>
+
+</div>
