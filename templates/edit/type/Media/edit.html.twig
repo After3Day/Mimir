@@ -1,0 +1,17 @@
+{% extends 'base.html.twig' %}
+{% block body %}
+<h4>Ajout d'un désigner</h4>
+{{ form_start(formDesigner, {'attr': {'action': path('edit_designer', {'id': id}), 'method': 'POST' }}) }}
+  {{ form_row(formDesigner.name, {
+  'label': 'Nom'
+  }) }}
+  {{ form_row(formDesigner.surname, {
+  'label': 'Prénom'
+  }) }}
+  {{ form_row(formDesigner.wikiLink, {
+  'label': "Lien l'article wikipédia"
+  }) }}
+
+<button id="Add2" class="btn waves-effect modal-close waves-test waves-light">Ajouter</button>
+{{ form_end(formDesigner) }}
+{% endblock %}

@@ -1,0 +1,31 @@
+{% extends 'base.html.twig' %}
+{% block body %}
+<h4>Modifier un club</h4>
+{{ form_start(formClub, {'attr': {'action': path('edit_club', {'id': id}), 'method': 'POST' }}) }}
+
+{{ form_row(formClub.clubName) }}
+
+<ul class="collapsible">
+      <li>
+        <div class="collapsible-header"><span class="card-subtitle">Contact</span></div>
+        <div class="collapsible-body">
+          {{ form_row(formClub.contact) }}
+        </div>
+      </li>
+    </ul>
+<ul class="collapsible">
+      <li>
+        <div class="collapsible-header"><span class="card-subtitle">Addresse</span></div>
+        <div class="collapsible-body">
+          {{ form_row(formClub.address) }}
+        </div>
+      </li>
+    </ul>
+
+<button id="Add2" class="btn waves-effect modal-close waves-test waves-light">Ajouter</button>
+{{ form_end(formClub) }}
+
+{% endblock %}
+{% block javascripts %}
+  <script type="text/javascript" src="{{ asset('js/edit.js') }}"></script>
+{% endblock %}

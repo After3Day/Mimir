@@ -3,6 +3,9 @@
 namespace App\Form;
 
 use App\Entity\Club;
+use App\Entity\Address;
+use App\Entity\Contact;
+
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
@@ -19,6 +22,8 @@ class ClubType extends AbstractType
     {
         $builder
             ->add('clubName')
+            ->add('contact', ContactType::class)
+            ->add('address', AddressType::class)
         ;
     }
 

@@ -1,8 +1,13 @@
 <!-- if à ajouter si besoin
 Ajouter du JS -> Flèche pour étendre les infos (pour sources p.ex) -->
+
 <div class="card-content">
   <h2 class="card-title">{{result.brand.brandName }} {{result.modele }}</h2>
-  {% if result.engine or result.gearbox or result.frame or result.identification %}
+
+  <a class="btn" href="{{path('edit_modele', {'id':result.id})}}">Modifier</a>
+  <a id="DeleteModele" class="btn" href="{{path('delete_modele', {'id':result.id})}}">Supprimer</a>
+
+{% if result.engine or result.gearbox or result.frame or result.identification %}
     <div class="card-body">
       <hr class="red-hr">
       <h5 class="card-subtitle">Numéro d'indentification :</h5>
@@ -21,9 +26,8 @@ Ajouter du JS -> Flèche pour étendre les infos (pour sources p.ex) -->
     </ul>
   </div>
 {% endif %}
-{% if result.versions %} <!-- Add Collapse -->
-  {% for version in result.versions %}
-    {% if version.versionName %}
+
+{% if result.isVersionExist %} <!-- Add Collapse -->
       <hr class="red-hr">
       <div class="card-body">
         <h5 class="card-subtitle">Versions : </h5>
@@ -33,9 +37,8 @@ Ajouter du JS -> Flèche pour étendre les infos (pour sources p.ex) -->
           </ul>
         {% endfor %}
       </div>
-    {% endif %}
-  {% endfor %}
 {% endif %}
+
 {% if result.collectors %} <!-- Add Collapse -->
   {% for collector in result.collectors %}
     {% if collector.contact.name %}

@@ -3,6 +3,9 @@
 namespace App\Form;
 
 use App\Entity\Event;
+use App\Entity\Contact;
+use App\Entity\Address;
+
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
@@ -19,7 +22,10 @@ class EventType extends AbstractType
     {
         $builder
             ->add('eventName')
-            ->add('eventDate')
+            ->add('eventDate', TextType::class, array(
+                'attr' => array('class'=>'datepicker')))
+            ->add('contact', ContactType::class)
+            ->add('address', AddressType::class)
         ;
     }
 

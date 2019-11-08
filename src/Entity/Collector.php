@@ -19,8 +19,8 @@ class Collector
     private $id;
 
     /**
-     * @ORM\OneToOne(targetEntity="App\Entity\Contact", cascade={"persist", "remove"})
-     * @ORM\JoinColumn(nullable=false)
+     * @ORM\OneToOne(targetEntity="App\Entity\Contact", cascade={"persist", "remove"}, orphanRemoval=true)
+     * @ORM\JoinColumn(nullable=false, onDelete="CASCADE")
      */
     private $contact;
 

@@ -1,0 +1,9 @@
+{% extends 'base.html.twig' %}
+{% block body %}
+<h4>Modifier un modèle</h4>
+{{ form_start(formModele, {'attr': {'action': path('edit_modele', {'id': id}), 'method': 'POST' }}) }}
+
+
+<button id="Add2" class="btn waves-effect modal-close waves-test waves-light">Ajouter</button>
+{{ form_end(formModele) }}
+{% endblock %}

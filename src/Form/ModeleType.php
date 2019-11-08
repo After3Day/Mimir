@@ -39,9 +39,10 @@ class ModeleType extends AbstractType
                     return $er->createQueryBuilder('b')
                         ->orderBy('b.brandName', 'ASC');
                 },
-                'label' => 'Marque',
+                'label' => false,
                 'choice_label' => 'brandName'])
-            ->add('modele')
+            ->add('modele', TextType::class, [
+                'label' => false])
             // numéro moteur
             // chassis
             // boîte
@@ -60,8 +61,9 @@ class ModeleType extends AbstractType
                     return $er->createQueryBuilder('b')
                         ->orderBy('b.name', 'ASC');
                 },
-                'label' => 'Designer',
-                'choice_label' => 'name'])
+                'label' => false,
+                'choice_label' => 'name',
+                'mapped' => false])
             ->add('collectors', EntityType::class, [
                 'class' => Collector::class,
                 'query_builder' => function (EntityRepository $er){
@@ -69,61 +71,12 @@ class ModeleType extends AbstractType
                         ->join('b.contact' , 'bc')
                         ->orderBy('bc.name', 'ASC');
                 },
-                'label' => 'Collector',
-                'choice_label' => 'contact.name'])
-            /*->add('designers', [CollectionType::class, [
-                'entry_type' => DesignerType::class,
-                'entry_options' => ['label' => false],
-                'allow_add' => true,
                 'label' => false,
-                'prototype' => true,
-                'by_reference' => false],
-            EntityType::class, [
-                'class' => Designer::class,
-                'query_builder' => function (EntityRepository $er){
-                    return $er->createQueryBuilder('b')
-                        ->orderBy('b.name', 'ASC');
-                },
-                'label' => 'Designer',
-                'choice_label' => 'name']])*/
-            // médias
-            // collector
+                'choice_label' => 'contact.name',
+                'mapped' => false])
+            //add Média !!
             ->add('save', SubmitType::class, ['label' => 'Enregister'])
 
-/*
-            ->add('versions', EntityType::class, [
-                'class' => Version::class,
-                'query_builder' => function (EntityRepository $er){
-                    return $er->createQueryBuilder('v')
-                        ->orderBy('v.versionName', 'ASC');
-                },
-                'choice_label' => 'versionName'])
-
-            ->add('medias', EntityType::class, [
-                'class' => Media::class,
-                'query_builder' => function (EntityRepository $er){
-                    return $er->createQueryBuilder('m')
-                        ->orderBy('m.type', 'ASC');
-                },
-                'choice_label' => 'type'])
-
-            ->add('collectors', EntityType::class, [
-                'class' => Collector::class,
-                'query_builder' => function (EntityRepository $er){
-                    return $er->createQueryBuilder('c')
-                        ->join('c.contact', 'cc')
-                        ->orderBy('cc.surname', 'ASC');
-                },
-                'choice_label' => 'contact.surname'])
-
-            ->add('designers', EntityType::class, [
-                'class' => Designer::class,
-                'query_builder' => function (EntityRepository $er){
-                    return $er->createQueryBuilder('d')
-                        ->orderBy('d.surname', 'ASC');
-                },
-                'choice_label' => 'surname'])
-*/
         ;
     }
 

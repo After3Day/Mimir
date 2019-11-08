@@ -4,6 +4,9 @@
 
   <h3 class="card-header">{{result.clubName }}</h3>
 
+  <a class="btn" href="{{path('edit_club', {'id':result.id})}}">Modifier</a>
+  <a class="btn" href="{{path('delete_club', {'id':result.id})}}">Supprimer</a>
+
   <hr class="red-hr">
 
   <div class="card-body">

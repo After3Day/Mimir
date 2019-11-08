@@ -18,14 +18,22 @@ class MediaType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-            ->add('type')
-            ->add('name')
-            ->add('number')
-            ->add('releaseDate')
-            ->add('author')
-            ->add('webLink')
-            ->add('repertory')
-            ->add('language')
+            ->add('type', TextType::class, [
+                'required' => true])
+            ->add('name', TextType::class, [
+                'required' => true])
+            ->add('number', TextType::class, [
+                'required' => false])
+            ->add('releaseDate', TextType::class, [
+                'required' => false])
+            ->add('author', TextType::class, [
+                'required' => false])
+            ->add('webLink', TextType::class, [
+                'required' => false])
+            ->add('repertory', TextType::class, [
+                'required' => false])
+            ->add('language', TextType::class, [
+                'required' => false])
         ;
     }
 

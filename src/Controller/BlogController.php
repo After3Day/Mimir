@@ -18,16 +18,12 @@ use Symfony\Component\Routing\RouterInterface;
 
 class BlogController extends AbstractController
 {
+  /**
+   * @Route("/", name="home")
+   */
 
-
-    /**
-     * @Route("/", name="home")
-     */
-
-    public function home()
-    {
-    	return $this->render('blog/home.html.twig');
-    }
-
-
+  public function home()
+  {
+  	return $this->render('blog/home.html.twig');
+  }
 }

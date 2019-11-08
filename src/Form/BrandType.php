@@ -2,7 +2,7 @@
 
 namespace App\Form;
 
-use App\Entity\Modele;
+use App\Entity\Brand;
 
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
@@ -19,19 +19,20 @@ use Symfony\Component\Form\FormEvents;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Doctrine\ORM\EntityRepository;
 
-class ModeleSearchType extends AbstractType
+class BrandType extends AbstractType
 {
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
 
         $builder
-            ->remove('manufacturerName')
-            ->add('modele', TextType::class)
+            ->add('brandName')
     ;
     }
 
-    public function getParent()
-      {
-        return ModeleType::class;
-      }
+    public function configureOptions(OptionsResolver $resolver)
+    {
+        $resolver->setDefaults([
+            'data_class' => Brand::class,
+        ]);
+    }
 }

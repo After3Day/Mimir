@@ -24,7 +24,7 @@ class Brand
     private $brandName;
 
     /**
-     * @ORM\OneToMany(targetEntity="App\Entity\Modele", mappedBy="brand", orphanRemoval=true, cascade={"persist"})
+     * @ORM\OneToMany(targetEntity="App\Entity\Modele", mappedBy="brand", orphanRemoval=true, cascade={"persist", "remove"})
      */
     private $modeles;
 

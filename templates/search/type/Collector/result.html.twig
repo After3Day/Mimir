@@ -3,6 +3,8 @@
 <div class="card mb-3">
 
   <h3 class="card-header" >{{ result.contact.name }} {{ result.contact.surName }}</h3>
+  <a class="btn" href="{{path('edit_collector', {'id':result.id})}}">Modifier</a>
+  <a class="btn" href="{{path('delete_collector', {'id':result.id})}}">Supprimer</a>
 
   <hr class="red-hr">
 

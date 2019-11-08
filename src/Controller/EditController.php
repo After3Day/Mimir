@@ -17,6 +17,8 @@ use Symfony\Component\Form\FormTypeInterface;
 
 use Doctrine\Common\Persistence\ObjectManager;
 
+use Symfony\Component\HttpFoundation\Response;
+
 use App\Repository\ModeleRepository;
 use App\Repository\BrandRepository;
 use App\Repository\ClubRepository;
@@ -30,6 +32,11 @@ Use App\Entity\Club;
 Use App\Entity\Event;
 Use App\Entity\Collector;
 Use App\Entity\Designer;
+Use App\Entity\Contact;
+Use App\Entity\Address;
+Use App\Entity\Media;
+
+
 
 Use App\Form\ModeleType;
 Use App\Form\BrandType;
@@ -37,6 +44,10 @@ Use App\Form\ClubType;
 Use App\Form\EventType;
 Use App\Form\CollectorType;
 Use App\Form\DesignerType;
+Use App\Form\ContactType;
+Use App\Form\AddressType;
+Use App\Form\MediaType;
+
 
 /**
 * @Route("/edit")
@@ -62,11 +73,44 @@ class EditController extends AbstractController
     }
 
     /**
-     * @Route("/Brand/", name="edit_modele")
+     * @Route("/Brand/{from}", name="edit_brand")
      */
-    public function editModele(Modele $modele = null, Request $request, ObjectManager $manager) {
+    public function editBrand(Brand $brand = null, Request $request, ObjectManager $manager, $from = null) {
 
-        $modele = new Modele();
+        $brand = new Brand();
+
+        $form = $this->editForm(BrandType::class, $brand);
+
+        $form->handleRequest($request);
+
+        if ($form->isSubmitted() && $form->isValid()) {
+
+            $entityManager = $this->getDoctrine()->getManager();
+            $entityManager->persist($brand);
+            $entityManager->flush();
+
+            $id = $brand->getId();
+
+            if ($from == 'Js') {
+                return new Response($id);
+            } else {
+                return $this->redirectToRoute('edit');
+            }
+        }
+
+            return $this->render('edit/type/Brand/show.html.twig', [
+            'formBrand' => $form->editView()
+        ]);
+    }
+
+    /**
+     * @Route("/Modele/{id}", name="edit_modele")
+     */
+    public function editModele(Modele $modele = null, Request $request, ObjectManager $manager, $id) {
+
+        $repository = $this->em->getRepository(Modele::class);
+
+        $modele = $repository->find($id);
 
         $form = $this->createForm(ModeleType::class, $modele);
 
@@ -74,45 +118,185 @@ class EditController extends AbstractController
 
         if ($form->isSubmitted() && $form->isValid()) {
 
-            $entityManager = $this->getDoctrine()->getManager();
-            $entityManager->persist($modele);
-            $entityManager->flush();
+            $manager->persist($modele);
+            $manager->flush();
 
-            return $this->redirectToRoute('edit');
+            return $this->redirectToRoute('home');
         }
 
-            return $this->render('edit/type/Brand/show.html.twig', [
-            'formModele' => $form->createView()
-        ]);
+        return $this->render('edit/type/Modele/edit.html.twig', [
+                'formModele' => $form->createView(),
+                'id' => $id
+            ]);
     }
 
     /**
-     * @Route("/Designer/", name="edit_designer")
+     * @Route("/Designer/{id}", name="edit_designer")
      */
-    public function editDesigner(Designer $designer = null, Request $request, ObjectManager $manager, $type = null) {
+    public function editDesigner(Designer $designer = null, Request $request, ObjectManager $manager, $id) {
 
+        $repository = $this->em->getRepository(Designer::class);
 
-        $designer = new Designer();
+        $designer = $repository->find($id);
 
         $form = $this->createForm(DesignerType::class, $designer);
 
         $form->handleRequest($request);
 
+        if ($form->isSubmitted() && $form->isValid()) {
 
+            $manager->persist($designer);
+            $manager->flush();
+
+            return $this->redirectToRoute('home');
+        }
+
+        return $this->render('edit/type/Designer/edit.html.twig', [
+                'formDesigner' => $form->createView(),
+                'id' => $id
+            ]);
+    }
+
+    /**
+     * @Route("/Collector/{id}", name="edit_collector")
+     */
+    public function editCollector(Collector $collector = null, Request $request, ObjectManager $manager, $id) {
+
+        $repository = $this->em->getRepository(Collector::class);
+
+        $collector = $repository->find($id);
+
+        $form = $this->createForm(CollectorType::class, $collector);
+
+        $form->handleRequest($request);
+
+        if ($form->isSubmitted() && $form->isValid()) {
+
+            $manager->persist($collector);
+            $manager->flush();
+
+            return $this->redirectToRoute('home');
+        }
+
+            return $this->render('edit/type/Collector/edit.html.twig', [
+            'formCollector' => $form->createView(),
+            'collector' => $collector,
+            'id' => $id
+        ]);
+    }
+
+    /**
+     * @Route("/Contact/", name="edit_contact")
+     */
+
+    public function editContact(Contact $contact = null, Request $request, ObjectManager $manager) {
+
+        $contact = new Contact();
+
+        $form = $this->editForm(ContactType::class, $contact);
+
+        $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
 
             $entityManager = $this->getDoctrine()->getManager();
-            $entityManager->persist($designer);
+            $entityManager->persist($contact);
             $entityManager->flush();
 
             return $this->redirectToRoute('edit');
         }
 
-            return $this->render('edit/type/Designer/show.html.twig', [
-            'formDesigner' => $form->createView()
+
+            return $this->render('edit/type/Address/show.html.twig', [
+            'formContact' => $form->editView()
         ]);
     }
 
+    /**
+     * @Route("/Event/{id}", name="edit_event")
+     */
 
+    public function editEvent(Event $event = null, Request $request, ObjectManager $manager, $id) {
+
+        $repository = $this->em->getRepository(Event::class);
+
+        $event = $repository->find($id);
+
+        $form = $this->createForm(EventType::class, $event);
+
+        $form->handleRequest($request);
+
+        if ($form->isSubmitted() && $form->isValid()) {
+
+            $manager->persist($event);
+            $manager->flush();
+
+            return $this->redirectToRoute('home');
+        }
+
+
+            return $this->render('edit/type/Event/edit.html.twig', [
+            'formEvent' => $form->createView(),
+            'id' => $id
+        ]);
+    }
+
+    /**
+     * @Route("/Club/{id}", name="edit_club")
+     */
+
+    public function editClub(Club $club = null, Request $request, ObjectManager $manager, $id) {
+
+        $repository = $this->em->getRepository(Club::class);
+
+        $club = $repository->find($id);
+
+        $form = $this->createForm(ClubType::class, $club);
+
+        $form->handleRequest($request);
+
+        if ($form->isSubmitted() && $form->isValid()) {
+
+            $manager->persist($club);
+            $manager->flush();
+
+            return $this->redirectToRoute('home');
+        }
+
+
+            return $this->render('edit/type/Club/edit.html.twig', [
+            'formClub' => $form->createView(),
+            'id' => $id
+        ]);
+    }
+
+    /**
+     * @Route("/Media/{from}", name="edit_media")
+     */
+    public function editMedia(Media $media = null, Request $request, ObjectManager $manager, $from=null) {
+
+        $media = new Media();
+
+        $form = $this->editForm(MediaType::class, $media);
+
+        $form->handleRequest($request);
+
+        if ($form->isSubmitted() && $form->isValid()) {
+
+            $entityManager = $this->getDoctrine()->getManager();
+            $entityManager->persist($media);
+            $entityManager->flush();
+
+            $id = $media->getId();
+
+            if ($from == 'Js') {
+                return new Response($id);
+            }
+
+        }
+
+            return $this->render('edit/type/Media/show.html.twig', [
+            'formMedia' => $form->editView()
+        ]);
+    }
 }

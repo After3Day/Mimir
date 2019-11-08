@@ -30,12 +30,12 @@ class Modele
     private $collectors;
 
     /**
-     * @ORM\ManyToMany(targetEntity="App\Entity\Designer", inversedBy="modeles", cascade={"persist", "remove"})
+     * @ORM\ManyToMany(targetEntity="App\Entity\Designer", inversedBy="modeles", cascade={"persist",})
      */
     private $designers;
 
     /**
-     * @ORM\OneToMany(targetEntity="App\Entity\Media", mappedBy="modele", cascade={"persist"})
+     * @ORM\OneToMany(targetEntity="App\Entity\Media", mappedBy="modele", cascade={"persist", "remove"})
      */
     private $medias;
 
@@ -114,6 +114,11 @@ class Modele
         }
 
         return $this;
+    }
+
+    public function isVersionExist()
+    {
+        (count($this->getVersions()) < 1) ? false : true;
     }
 
     /**

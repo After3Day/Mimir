@@ -4,6 +4,9 @@
 
   <h3 class="card-header" >{{ result.eventName }}</h3>
 
+  <a class="btn" href="{{path('edit_event', {'id':result.id})}}">Modifier</a>
+  <a class="btn" href="{{path('delete_event', {'id':result.id})}}">Supprimer</a>
+
   <hr class="red-hr">
 
   <div class="card-body">

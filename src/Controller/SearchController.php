@@ -80,7 +80,6 @@ class SearchController extends AbstractController
 
         $results = $repository->findOneBy(array('id' => $primary));
 
-
         return $this->render('search/type/'.$type.'/options.html.twig', [
             'results' => $results,
             'type' => $type
