@@ -26,6 +26,9 @@
             <ul id="nav-mobile" class="left hide-on-med-and-down">
               <li><a href="{{path('search')}}">Rechercher</a></li>
               <li><a href="{{path('create')}}">Ajouter</a></li>
+              {% if app.user %}
+              <li><a href="{{ path('app_logout') }}">Deconnexion</a></li>
+              {% endif %}
             </ul>
           </div>
         </nav>
@@ -33,6 +36,9 @@
       <ul class="sidenav" id="mobile-demo">
         <li><a href="{{path('search')}}">Rechercher</a></li>
         <li><a href="{{path('create')}}">Ajouter</a></li>
+        {% if app.user %}
+        <li><a href="{{ path('app_logout') }}">Deconnexion</a></li>
+        {% endif %}
       </ul>
     </header>
     <main class="back_color">

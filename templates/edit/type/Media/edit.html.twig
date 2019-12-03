@@ -1,7 +1,89 @@
 {% extends 'base.html.twig' %}
 {% block body %}
-<h4>Modifier une sources</h4>
+<h4>Modifier une source</h4>
 {{ form_start(formMedia, {'attr': {'id': 'form_media_edit', 'action': path('edit_media', {'id': id}), 'method': 'POST' }}) }}
+<div class="row">
+  <div class="col s12">
+    <div class="row">
+      <div class="input-field col s12">
+        <li class="collection-item">
+        Type de document
+        {{ form_widget(formMedia.type) }}
+        </li>
+      </div>
+    </div>
+  </div>
+  <div class="col s12">
+    <div class="row">
+      <div class="input-field col s12">
+        <li class="collection-item">
+        Nom du document
+        {{ form_widget(formMedia.name) }}
+        </li>
+      </div>
+    </div>
+  </div>
+  <div class="col s12">
+    <div class="row">
+      <div class="input-field col s12">
+        <li class="collection-item">
+        Numéro
+        {{ form_widget(formMedia.number) }}
+        </li>
+      </div>
+    </div>
+  </div>
+  <div class="col s12">
+    <div class="row">
+      <div class="input-field col s12">
+        <li class="collection-item">
+        Numéro
+        {{ form_widget(formMedia.releaseDate, {'attr': {'type': 'text'}}) }}
+        </li>
+      </div>
+    </div>
+  </div>
+  <div class="col s12">
+    <div class="row">
+      <div class="input-field col s12">
+        <li class="collection-item">
+        Auteur
+        {{ form_widget(formMedia.author) }}
+        </li>
+      </div>
+    </div>
+  </div>
+  <div class="col s12">
+    <div class="row">
+      <div class="input-field col s12">
+        <li class="collection-item">
+        Lien Wikipédia
+        {{ form_widget(formMedia.webLink) }}
+        </li>
+      </div>
+    </div>
+  </div>
+  <div class="col s12">
+    <div class="row">
+      <div class="input-field col s12">
+        <li class="collection-item">
+        Répertoire
+        {{ form_widget(formMedia.repertory) }}
+        </li>
+      </div>
+    </div>
+  </div>
+  <div class="col s12">
+    <div class="row">
+      <div class="input-field col s12">
+        <li class="collection-item">
+        Langue
+        {{ form_widget(formMedia.language) }}
+        </li>
+      </div>
+    </div>
+  </div>
+</div>
 
 <button id="" class="btn waves-effect modal-close waves-test waves-light">Sauvegarder</button>
 {{ form_end(formMedia) }}

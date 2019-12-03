@@ -88,7 +88,7 @@
               <li class="collection-item">Auteur : {{ media.author }}</li>
             {% endif %}
             {% if media.webLink %}
-              <li class="collection-item">Lien : {{ media.webLink }}</li>
+              <li class="collection-item">Lien : <a href="{{ media.webLink }}" target="blank">{{ media.webLink }}</a></li>
             {% endif %}
             {% if media.repertory %}
               <li class="collection-item">Répertoire : {{ media.repertory }}</li>

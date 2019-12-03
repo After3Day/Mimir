@@ -23,10 +23,10 @@ class AddressType extends AbstractType
                 'required' => true])
             ->add('zipCode', IntegerType::class, [
                 'label' => 'Code postal',
-                'required' => true])
+                'required' => false])
             ->add('street', TextType::class, [
                 'label' => 'Rue',
-                'required' => true])
+                'required' => false  ])
             ->add('streetNumber', IntegerType::class, [
                 'label' => 'Numéro de rue',
                 'required' => false])

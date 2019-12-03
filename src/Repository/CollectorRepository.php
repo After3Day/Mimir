@@ -20,7 +20,9 @@ class CollectorRepository extends ServiceEntityRepository
         parent::__construct($registry, Collector::class);
     }
 
-
+    public function findAll() {
+        return $this->findBy(array(), array('name' => 'ASC'));
+    }
 
     public function findWithPandS($value, $test) {
 

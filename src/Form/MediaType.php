@@ -40,7 +40,7 @@ class MediaType extends AbstractType
                 'label' => 'Lien wikipédia'])
             ->add('repertory', TextType::class, [
                 'required' => false,
-                'label' => 'Dossier/Répértoire'])
+                'label' => 'Dossier/Répertoire'])
             ->add('language', TextType::class, [
                 'required' => false,
                 'label' => 'Langue'])

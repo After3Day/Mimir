@@ -27,7 +27,9 @@
         <ul class="collection">
           <li class="collection-item">Pays : {{ result.address.country }}</li>
           <li class="collection-item">Ville : {{ result.address.zipCode }} {{ result.address.city }}</li>
+          {% if result.address.street %}
           <li class="collection-item">Rue : {{ result.address.street }} {{ result.address.streetNumber }}</li>
+          {% endif %}
         </ul>
       </div>
     </li>
@@ -51,7 +53,9 @@
                 <ul class="collection">
                   <li class="collection-item">Pays : {{ result.contact.address.country }}</li>
                   <li class="collection-item">Ville : {{ result.contact.address.zipCode }} {{ result.contact.address.city }}</li>
+                  {% if result.contact.address.street %}
                   <li class="collection-item">Rue : {{ result.contact.address.street }} {{ result.contact.address.streetNumber }}</li>
+                  {% endif %}
                 </ul>
               </div>
             </li>
