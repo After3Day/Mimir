@@ -8,12 +8,12 @@
     <!-- Compiled and minified CSS -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css">
     <!--Let browser know website is optimized for mobile-->
-    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1.0, maximum-scale=1.0">
     {% block stylesheets %}
       {# 'app' must match the first argument to addEntry() in webpack.config.js #}
       {{ encore_entry_link_tags('app') }}
       <!-- Renders a link tag (if your module requires any CSS)
-      <link rel="stylesheet" href="/build/app.css"> -->
+      <link rel="stylesheet" href="mimir/public/build/app.css"> -->
     {% endblock %}
   </head>
   <body>
@@ -35,7 +35,7 @@
         <li><a href="{{path('create')}}">Ajouter</a></li>
       </ul>
     </header>
-    <main class="grey2">
+    <main class="back_color">
       <div class="container">
         {% block body %}{% endblock %}
       </div>
@@ -54,8 +54,8 @@
     <script type="text/javascript"src="{{ path('fos_js_routing_js', {"callback": "fos.Router.setData"}) }}"></script>
     {{ encore_entry_script_tags('app') }}
     <!-- Renders app.js & a webpack runtime.js file
-    <script src="/build/runtime.js"></script>
-    <script src="/build/app.js"></script> -->
+    <script src="{{ asset('build/router.js') }}"></script>
+    <script src="{{ asset('build/app.js') }}"></script> -->
     {% block javascripts %}
     {% endblock %}
   </body>

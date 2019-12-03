@@ -19,7 +19,7 @@ class Brand
     private $id;
 
     /**
-     * @ORM\Column(type="string", length=255)
+     * @ORM\Column(type="string", length=255, unique=true)
      */
     private $brandName;
 
@@ -79,6 +79,11 @@ class Brand
         }
 
         return $this;
+    }
+
+    public function isModelesExist()
+    {
+        return (count($this->getModeles()) < 1) ? false : true;
     }
 }
 

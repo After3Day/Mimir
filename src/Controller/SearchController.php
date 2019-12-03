@@ -111,8 +111,16 @@ class SearchController extends AbstractController
         $repository = $this->em->getRepository("App\Entity\Modele");
         $result = $repository->findWithNumber($criteria, $myString);
 
-        return $this->render('search/type/Modele/result.html.twig', [
+        if ($result != null) {
+          return $this->render('search/type/Modele/result.html.twig', [
                 'result' => $result
             ]);
+      } else {
+        return $this->render('search/type/Modele/none.html.twig', [
+                'result' => $result
+            ]);
+      }
+
+
     }
 }

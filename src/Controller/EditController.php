@@ -35,8 +35,9 @@ Use App\Entity\Designer;
 Use App\Entity\Contact;
 Use App\Entity\Address;
 Use App\Entity\Media;
+Use App\Entity\Version;
 
-
+Use App\Services\SplitHandler;
 
 Use App\Form\ModeleType;
 Use App\Form\BrandType;
@@ -47,18 +48,25 @@ Use App\Form\DesignerType;
 Use App\Form\ContactType;
 Use App\Form\AddressType;
 Use App\Form\MediaType;
-
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 
 /**
 * @Route("/edit")
+*
+* Require ROLE_USER for *every* controller method in this class.
+*
+* @IsGranted("ROLE_USER")
 */
+
 class EditController extends AbstractController
 {
     private $em;
+    private $spliter;
 
-    public function __construct(EntityManagerInterface $em) {
+    public function __construct(EntityManagerInterface $em, SplitHandler $spliter) {
 
         $this->em = $em;
+        $this->spliter = $spliter;
 
     }
 
@@ -110,7 +118,7 @@ class EditController extends AbstractController
 
         $repository = $this->em->getRepository(Modele::class);
 
-        $modele = $repository->find($id);
+        $modele = $repository->findOneById($id);
 
         $form = $this->createForm(ModeleType::class, $modele);
 
@@ -118,14 +126,22 @@ class EditController extends AbstractController
 
         if ($form->isSubmitted() && $form->isValid()) {
 
+            // Ne Marche qu'une fois ?
+
+            $this->spliter->handleCollector($request, 'Collector', $modele, $manager);
+            $this->spliter->handleDesigner($request, 'Designer', $modele, $manager);
+
             $manager->persist($modele);
             $manager->flush();
 
+            $this->spliter->handleMedia($request, 'Media', $modele, $manager);
+
+
             return $this->redirectToRoute('home');
         }
-
         return $this->render('edit/type/Modele/edit.html.twig', [
                 'formModele' => $form->createView(),
+                'result' => $modele,
                 'id' => $id
             ]);
     }
@@ -142,7 +158,6 @@ class EditController extends AbstractController
         $form = $this->createForm(DesignerType::class, $designer);
 
         $form->handleRequest($request);
-
         if ($form->isSubmitted() && $form->isValid()) {
 
             $manager->persist($designer);
@@ -257,8 +272,8 @@ class EditController extends AbstractController
 
         if ($form->isSubmitted() && $form->isValid()) {
 
-            $manager->persist($club);
-            $manager->flush();
+            $entityManager->persist($club);
+            $entityManager->flush();
 
             return $this->redirectToRoute('home');
         }
@@ -271,32 +286,30 @@ class EditController extends AbstractController
     }
 
     /**
-     * @Route("/Media/{from}", name="edit_media")
+     * @Route("/Media/{id}", name="edit_media")
      */
-    public function editMedia(Media $media = null, Request $request, ObjectManager $manager, $from=null) {
+    public function editMedia(Media $media = null, Request $request, ObjectManager $manager, $id) {
 
-        $media = new Media();
+        $repository = $this->em->getRepository(Media::class);
 
-        $form = $this->editForm(MediaType::class, $media);
+        $media = $repository->find($id);
+
+        $form = $this->createForm(MediaType::class, $media);
 
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
 
-            $entityManager = $this->getDoctrine()->getManager();
             $entityManager->persist($media);
             $entityManager->flush();
 
-            $id = $media->getId();
-
-            if ($from == 'Js') {
-                return new Response($id);
-            }
+            return $this->redirectToRoute('home');
 
         }
 
-            return $this->render('edit/type/Media/show.html.twig', [
-            'formMedia' => $form->editView()
+            return $this->render('edit/type/Media/edit.html.twig', [
+            'formMedia' => $form->createView(),
+            'id' => $id
         ]);
     }
 }

@@ -1,2 +1,86 @@
 {{ form_start(formMedia, {'attr': {'id': 'form_media_create', 'action': path('create_media'), 'method': 'POST' }}) }}
+
+<div class="row">
+  <div class="col s12">
+    <div class="row">
+      <div class="input-field col s12">
+        <li class="collection-item">
+        Type de document
+        {{ form_widget(formMedia.type) }}
+        </li>
+      </div>
+    </div>
+  </div>
+  <div class="col s12">
+    <div class="row">
+      <div class="input-field col s12">
+        <li class="collection-item">
+        Nom du document
+        {{ form_widget(formMedia.name) }}
+        </li>
+      </div>
+    </div>
+  </div>
+  <div class="col s12">
+    <div class="row">
+      <div class="input-field col s12">
+        <li class="collection-item">
+        Numéro
+        {{ form_widget(formMedia.number) }}
+        </li>
+      </div>
+    </div>
+  </div>
+  <div class="col s12">
+    <div class="row">
+      <div class="input-field col s12">
+        <li class="collection-item">
+        Numéro
+        {{ form_widget(formMedia.releaseDate, {'attr': {'type': 'text'}}) }}
+        </li>
+      </div>
+    </div>
+  </div>
+  <div class="col s12">
+    <div class="row">
+      <div class="input-field col s12">
+        <li class="collection-item">
+        Auteur
+        {{ form_widget(formMedia.author) }}
+        </li>
+      </div>
+    </div>
+  </div>
+  <div class="col s12">
+    <div class="row">
+      <div class="input-field col s12">
+        <li class="collection-item">
+        Lien Wikipédia
+        {{ form_widget(formMedia.webLink) }}
+        </li>
+      </div>
+    </div>
+  </div>
+  <div class="col s12">
+    <div class="row">
+      <div class="input-field col s12">
+        <li class="collection-item">
+        Répértoire
+        {{ form_widget(formMedia.repertory) }}
+        </li>
+      </div>
+    </div>
+  </div>
+  <div class="col s12">
+    <div class="row">
+      <div class="input-field col s12">
+        <li class="collection-item">
+        Langue
+        {{ form_widget(formMedia.language) }}
+        </li>
+      </div>
+    </div>
+  </div>
+</div>
+
 {{ form_end(formMedia) }}

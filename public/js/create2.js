@@ -8,188 +8,204 @@ var $collectionHolder; //Version
 var $addTagButton = $('<button type="button" class="add_tag_link btn btn-primary">Ajouter une version</button>');
 var $newLinkLi = $('<li></li>').append($addTagButton);
 
-
 jQuery(document).ready(function() {
 
+  $('#VerAdd').on('click', function(event) {
+    let Value = $('#Version').val();
+    Value = Value + event.target.id + ",";
 
-    //Designer
-        $('#addDesigner').click( function() {
-            let type = $('#createTest :selected').val();
-            $.ajax({
-                    method: "GET",
-                    url: 'Designer/'
-                }).done(function( result ) {
-                    $("#Modal_Designer").html(result);
-                    document.getElementById('Add2').style.display = 'none';
-            });
-        });
+    $('#Version').val(Value);
+    event.target.remove();
+  });
 
-        $('#AddDbbDes').click( function() {
-          $.ajax({
-            type: "POST",
-            url: "Designer/Js",
-            data: $('#form_person_create').serialize()
-            }).done( function(result) {
-              $('#modele_designers').append("<option value="+result+" selected>"+$('#designer_name').val()+"</option>");
-              $('#modele_designers').formSelect();
-            });
-        });
+  //Designer
+    $('#addDesigner').click( function() {
+      let type = $('#createTest :selected').val();
+      $.ajax({
+        method: "GET",
+        url:  '/create/Designer/'
+      }).done(function( result ) {
+        $("#Modal_Designer").html(result);
+        document.getElementById('Add2').style.display = 'none';
+      });
+    });
 
-        $('#modele_designers').on('change', function() {
-            let asdf = $('#DesAddId').val();
-            let asdf2 = $('#modele_designers :selected').val();
+    $('#AddDbbDes').click( function() {
+      $.ajax({
+        type: "POST",
+        url: "/create/Designer/Js",
+        data: $('#form_person_create').serialize()
+      }).done( function(result) {
+        $('#modele_designers').append("<option value="+result+">"+$('#designer_surname').val()+ " " +$('#designer_name').val()+"</option>");
+        $('#modele_designers').formSelect();
+        $('#modele_designers').val('');
+      });
+    });
 
-            asdf = asdf + ',' + asdf2;
+    $('#modele_designers').on('change', function() {
+      let asdf = $('#Designer').val().split(",");
+      let asdf2 = $('#modele_designers :selected').val();
 
-            $('#DesAddId').val(asdf);
-            $('#DesAdd').append("<li id="+asdf2+">"+$('#modele_designers :selected').html()+"</li");
-        });
-
-        $('#DesAdd').on('click', function(event) {
-            let values = $('#DesAddId').val().split(",");
-            let newValue = "";
-            for ( let i = 0 ; i < values.length ; i++ )
-            {
-                if ( event.target.id != values[i] )
-                {
-                    newValue = newValue + values[i] + ",";
-                }
+      if( asdf2 != null) {
+        if (asdf == "") {
+          asdf.push(asdf2);
+          $('#Designer').val(asdf);
+          $('#DesAdd').append('<li id='+asdf2+' '+'class="collection-item">'+$('#modele_designers :selected').html()+'</li>');
+          $('#modele_designers').val('');
+        } else {
+          for ( let i = 0 ; i < asdf.length ; i++ ) {
+            if ( $.inArray(asdf2, asdf) != -1) {
+            } else {
+              asdf.push(asdf2);
+              $('#Designer').val(asdf);
+              $('#DesAdd').append('<li id='+asdf2+' '+'class="collection-item">'+$('#modele_designers :selected').html()+'</li>');
+              $('#modele_designers').val('');
+              break;
             }
+            $('#modele_designers').val('');
+          }
+        }
+      }
+    });
 
-            $('#DesAddId').val(newValue);
-            event.target.remove();
-        })
+    $('#DesAdd').on('click', function(event) {
+      let values = $('#Designer').val().split(",");
+      let asdf2 = event.target.id;
+      let hidden = $('#Designer');
 
-    //Collector
-        $('#addCollector').click( function() {
-            let type = $('#ecreateTest :selected').val();
-            $.ajax({
-                    method: "GET",
-                    url: 'Collector/'
-                 }).done(function( result ) {
-                    $("#Modal_Collector").html(result);
-                 });
-        });
+      handleHiddenInput(values, asdf2, hidden);
 
-        $('#AddDbbCol').click( function() {
-          $.ajax({
-            type: "POST",
-            url: "Collector/Js",
-            data: $('#form_collector_create').serialize()
-            }).done( function(result) {
-              $('#modele_collectors').append("<option value="+result+">"+$('#collector_contact_name').val()+$('#collector_contact_surname').val()+"</option>");
-              $('#modele_collectors').formSelect();
-            });
-        });
+    });
 
-        $('#modele_collectors').on('change', function() {
-            let asdf = $('#ColAddId').val();
-            let asdf2 = $('#modele_collectors :selected').val();
-            asdf = asdf + ',' + asdf2;
+  //Collector
+    $('#addCollector').click( function() {
+      let type = $('#ecreateTest :selected').val();
+      $.ajax({
+        method: "GET",
+        url:  '/create/Collector/'
+      }).done(function( result ) {
+        $("#Modal_Collector").html(result);
+        document.getElementById('Add2').style.display = 'none';
+      });
+    });
 
-            $('#ColAddId').val(asdf);
-            $('#ColAdd').append("<li id="+asdf2+">"+$('#modele_collectors :selected').html()+"</li");
-        });
+    $('#AddDbbCol').click( function() {
+      $.ajax({
+        type: "POST",
+        url: "/create/Collector/Js",
+        data: $('#form_collector_create').serialize()
+      }).done( function(result) {
+        $('#modele_collectors').append("<option value="+result+">"+$('#collector_surname').val()+ " " + $('#collector_name').val()+"</option>");
+        $('#modele_collectors').formSelect();
+        $('#modele_collectors').val('');
+      });
+    });
 
-        $('#ColAdd').on('click', function(event) {
-            let values = $('#ColAddId').val().split(",");
-            let newValue = "";
-            for ( let i = 0 ; i < values.length ; i++ )
-            {
-                if ( event.target.id != values[i] )
-                {
-                    newValue = newValue + values[i] + ",";
-                }
+    $('#modele_collectors').on('change', function() {
+      let asdf = $('#Collector').val().split(",");
+      let asdf2 = $('#modele_collectors :selected').val();
+
+      if( asdf2 != null) {
+        if (asdf == "") {
+          asdf.push(asdf2);
+          $('#Collector').val(asdf);
+          $('#ColAdd').append("<li id="+asdf2+' '+'class="collection-item">'+$('#modele_collectors :selected').html()+"</li");
+          $('#modele_collectors').val('');
+        } else {
+          for ( let i = 0 ; i < asdf.length ; i++ ) {
+            if ( $.inArray(asdf2, asdf) != -1){
+            } else {
+              asdf.push(asdf2);
+              $('#Collector').val(asdf);
+              $('#ColAdd').append("<li id="+asdf2+' '+'class="collection-item">'+$('#modele_collectors :selected').html()+"</li");
+              $('#modele_collectors').val('');
+              break;
             }
+            $('#modele_collectors').val('');
+          }
+        }
+      }
+    });
 
-            $('#ColAddId').val(newValue);
-            event.target.remove();
-        })
+    $('#ColAdd').on('click', function(event) {
+      let values = $('#Collector').val().split(",");
+      let asdf2 = event.target.id;
+      let hidden = $('#Collector');
 
-    //Media
-        $('#addMedia').click( function() {
-        let type = $('#createTest :selected').val();
-        console.log(type);
-        $.ajax({
-                method: "GET",
-                url: 'Media/'
-             }).done(function( result ) {
-                $("#Modal_Media").html(result);
-             });
-        });
-        $('#AddDbbMed').click( function() {
-          $.ajax({
-            type: "POST",
-            url: "Media/Js",
-            data: $('#form_media_create').serialize()
-          }).done( function(result) {
-              $('#MedAdd').append("<li value ="+result+">Type:"+$('#media_type').val()+"Nom du fichier:"+$('#media_name').val()+"</li>");
-              let asdf = $('#MedAddId').val();
-              let asdf2 = result;
-              asdf = asdf + ',' + asdf2;
-              $('#MedAddId').val(asdf);
-            });
-        });
+      handleHiddenInput(values, asdf2, hidden);
 
-        $('#MedAdd').on('click', function(event) {
-            let values = $('#MedAddId').val().split(",");
-            let newValue = "";
-            for ( let i = 0 ; i < values.length ; i++ )
-            {
-                if ( event.target.id != values[i] )
-                {
-                    newValue = newValue + values[i] + ",";
-                }
-            }
+    });
 
-            $('#ColAddId').val(newValue);
-            event.target.remove();
-            //$.ajax({
-            //type: "POST"
-            //url: "Media/Delete"+id,
-            //});
-        })
+  //Media
+    $('#addMedia').click( function() {
+      let type = $('#createTest :selected').val();
+      $.ajax({
+        method: "GET",
+        url:  '/create/Media/'
+      }).done(function( result ) {
+        $("#Modal_Media").html(result);
+      });
+    });
 
-    //Marque
-        $('#addMarque').click( function() {
-        let type = $('#ecreateTest :selected').val();
-        console.log(type);
-        $.ajax({
-                method: "GET",
-                url: 'Brand/'
-             }).done(function( result ) {
-                $("#Modal_Marque").html(result);
-             });
-        });
-        $('#AddDbbMar').click( function() {
+    $('#AddDbbMed').click( function() {
+      $.ajax({
+        type: "POST",
+        url: "/create/Media/Js",
+        data: $('#form_media_create').serialize()
+      }).done( function(result) {
+        $('#MedAdd').append('<li id='+result+' '+'class="collection-item">Type : '+$('#media_type').val()+'<br> '+'Nom du fichier : '+$('#media_name').val()+'</li>');
+        let asdf = $('#Media').val();
+        let asdf2 = result;
+        asdf = asdf + ',' + asdf2;
+        $('#Media').val(asdf);
+      });
+    });
 
-          $.ajax({
-            type: "POST",
-            url: "Brand/Js",
-            data: $('#form_brand_create').serialize()
-          }).done( function(result) {
-              console.log(result);
-              $('#modele_brand').append("<option value="+result+">"+$('#brand_brandName').val()+"</option>");
-              $('#modele_brand').formSelect();
-            });
-        });
+    $('#MedAdd').on('click', function(event) {
+      let values = $('#Media').val().split(",");
+      let asdf2 = event.target.id;
+      let hidden = $('#Media');
 
-      $('.modal').modal();
-      $('select').formSelect();
-        // Get the ul that holds the collection of tags
-        $collectionHolder = $('ul.versions');
-        // add the "add a tag" anchor and li to the tags ul
-        $collectionHolder.append($newLinkLi);
+      handleHiddenInput(values, asdf2, hidden);
+    });
 
-        // count the current form inputs we have (e.g. 2), use that as the new
-        // index when inserting a new item (e.g. 2)
-        $collectionHolder.data('index', $collectionHolder.find(':input').length);
+  //Marque
+    $('#addMarque').click( function() {
+      let type = $('#ecreateTest :selected').val();
+      $.ajax({
+        method: "GET",
+        url: '/create/Brand/'
+      }).done(function( result ) {
+        $("#Modal_Marque").html(result);
+      });
+    });
 
-        $addTagButton.on('click', function(e) {
-            // add a new tag form (see next code block)
-            addTagForm($collectionHolder, $newLinkLi);
-        });
+    $('#AddDbbMar').click( function() {
+      $.ajax({
+        type: "POST",
+        url: "/create/Brand/Js",
+        data: $('#form_brand_create').serialize()
+      }).done( function(result) {
+        $('#modele_brand').append("<option value="+result+" selected >"+$('#brand_brandName').val()+"</option>");
+        $('#modele_brand').formSelect();
+      });
+    });
 
+    $('.modal').modal();
+    $('select').formSelect();
+    // Get the ul that holds the collection of tags
+    $collectionHolder = $('ul.versions');
+    // add the "add a tag" anchor and li to the tags ul
+    $collectionHolder.append($newLinkLi);
+
+    // count the current form inputs we have (e.g. 2), use that as the new
+    // index when inserting a new item (e.g. 2)
+    $collectionHolder.data('index', $collectionHolder.find(':input').length);
+
+    $addTagButton.on('click', function(e) {
+    // add a new tag form (see next code block)
+      addTagForm($collectionHolder, $newLinkLi);
+    });
 });
 
 function addTagForm($collectionHolder, $newLinkLi) {
@@ -208,7 +224,7 @@ function addTagForm($collectionHolder, $newLinkLi) {
     var $newFormLi = $('<li></li>').append(newForm);
 
     $newLinkLi.before($newFormLi);
-     addTagFormDeleteLink($newFormLi);
+      addTagFormDeleteLink($newFormLi);
 }
 
 function addTagFormDeleteLink($tagFormLi) {
@@ -218,4 +234,19 @@ function addTagFormDeleteLink($tagFormLi) {
     $removeFormButton.on('click', function(e) {
         $tagFormLi.remove();
     });
+}
+
+function handleHiddenInput(values, asdf2, hidden) {
+  if( values != '') {
+    if ( $.inArray(asdf2, values) != -1)
+    {
+      values.splice($.inArray(asdf2, values), 1);
+      event.target.remove();
+      hidden.val(values);
+    } else {
+      values.push(asdf2);
+      hidden.val(values);
+      event.target.remove();
+    }
+  }
 }

@@ -36,7 +36,7 @@ Use App\Entity\Contact;
 Use App\Entity\Address;
 Use App\Entity\Media;
 
-
+Use App\Services\SplitHandler;
 
 Use App\Form\ModeleType;
 Use App\Form\BrandType;
@@ -47,18 +47,25 @@ Use App\Form\DesignerType;
 Use App\Form\ContactType;
 Use App\Form\AddressType;
 Use App\Form\MediaType;
-
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 
 /**
 * @Route("/create")
+*
+* Require ROLE_USER for *every* controller method in this class.
+*
+* @IsGranted("ROLE_USER")
 */
+
 class CreateController extends AbstractController
 {
     private $em;
+    private $spliter;
 
-    public function __construct(EntityManagerInterface $em) {
+    public function __construct(EntityManagerInterface $em, SplitHandler $spliter) {
 
         $this->em = $em;
+        $this->spliter = $spliter;
 
     }
 
@@ -67,9 +74,11 @@ class CreateController extends AbstractController
      *
      */
     public function createHome() {
-
-        return $this->render('create/type/home.html.twig');
-
+        if ($this->getUser()) {
+          return $this->render('create/type/home.html.twig');
+        } else {
+          return $this->redirectToRoute('app_login');
+        }
     }
 
     /**
@@ -108,13 +117,7 @@ class CreateController extends AbstractController
      */
     public function createModele(Modele $modele = null, Request $request, ObjectManager $manager) {
 
-        $entityManager = $this->getDoctrine()->getManager();
-
         $modele = new Modele();
-
-        $repository = $entityManager->getRepository(Modele::class);
-
-        $modele = $repository->find(5);
 
         $form = $this->createForm(ModeleType::class, $modele);
 
@@ -123,51 +126,17 @@ class CreateController extends AbstractController
         if ($form->isSubmitted() && $form->isValid()) {
 
             //Designer
-
-                $temp = explode(',', $request->get('DesAddId'));
-                $length =  count($temp);
-
-                for ($i=1; $i < $length; $i++) {
-
-                    if ($temp[$i] != '') {
-                        $results = new Designer();
-                        $results = $this->em->getRepository(Designer::class)->findOneBy(array('id' => $temp[$i]));
-                        $modele->addDesigner($results);
-                    }
-                }
+            $this->spliter->handleDesigner($request, 'Designer', $modele, $manager);
 
             //Collector
-                $temp2 = explode(',', $request->get('ColAddId'));
-                $length2 =  count($temp2);
-
-                for ($j=1; $j < $length2; $j++) {
-
-                    if ($temp2[$j] != '') {
-                        $results2 = new Collector();
-                        $results2 = $this->em->getRepository(Collector::class)->findOneBy(array('id' => $temp2[$j]));
-                        $modele->addCollector($results2);
-                    }
-                }
+            $this->spliter->handleCollector($request, 'Collector', $modele, $manager);
 
             $entityManager = $this->getDoctrine()->getManager();
             $entityManager->persist($modele);
             $entityManager->flush();
-            //récupèrer les id des medias, fecth les objets, ->addModele avec l'id du modele
 
             //Media
-                $id = $modele->getId();
-                $temp3 = explode(',', $request->get('MedAddId'));
-                $length3 =  count($temp3);
-                 for ($l=1; $l < $length3; $l++) {
-
-                    if ($temp3[$l] != '') {
-                        $results3 = new Media();
-                        $results3 = $this->em->getRepository(Media::class)->findOneBy(array('id' => $temp3[$l]));
-                        $results3->setModele($modele);
-                        $entityManager->persist($results3);
-                        $entityManager->flush();
-                    }
-                }
+            $this->spliter->handleMedia($request, 'Media', $modele, $manager);
 
 
             return $this->redirectToRoute('create');
@@ -220,7 +189,6 @@ class CreateController extends AbstractController
      * @Route("/Collector/{from}", name="create_collector")
      */
     public function createCollector(Collector $collector = null, Request $request, ObjectManager $manager, $from=null) {
-
 
         $collector = new Collector();
 
@@ -330,9 +298,9 @@ class CreateController extends AbstractController
     }
 
     /**
-     * @Route("/Media/{from}", name="create_media")
+     * @Route("/Media/{from}/{id}", name="create_media")
      */
-    public function createMedia(Media $media = null, Request $request, ObjectManager $manager, $from=null) {
+    public function createMedia(Media $media = null, Request $request, ObjectManager $manager, $from=null, $id=null) {
 
         $media = new Media();
 

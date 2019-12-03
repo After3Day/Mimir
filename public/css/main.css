@@ -1,3 +1,10 @@
+.dropdown-content, .select-dropdown{
+        overflow-y: auto !important;
+        max-height: 500px !important;
+      }
+.break-word {
+  word-break: break-word !important;
+}
 li {
   list-style-type: none;
 }
@@ -63,3 +70,12 @@ fieldset {
 }
 
 .material-icons.md-18 { font-size: 15px; }
+
+.hidden-row {
+  visibility: hidden;
+  position: absolute;
+}
+
+.back_color {
+  background-color: #ecf0f5 !important;
+}

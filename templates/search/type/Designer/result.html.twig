@@ -1,13 +1,19 @@
 <!-- if à ajouter si besoin -->
 
-<div class="card mb-3">
-  <a class="btn" href="{{path('edit_designer', {'id':result.id})}}">Modifier</a>
-  <a class="btn" href="{{path('delete_designer', {'id':result.id})}}">Supprimer</a>
-  <h3 class="card-header" >{{ result.name }} {{ result.surName }}</h3>
+<div class="card-content">
+  <ul>
+    <li class="collection-item card-title">
+      <div>{{result.surname }} {{result.name }}
+        <a id="DeleteModele" class="secondary-content btn-small deep-orange accent-2" href="{{path('delete_designer', {'id':result.id})}}">Supprimer</a><span class="secondary-content">&nbsp;</span>
+        <a class="secondary-content btn-small blue lighten-3" href="{{path('edit_designer', {'id':result.id})}}">Modifier</a>
+      </div>
+    </li>
+    {% if result.wikiLink %}
+    <li class="collection-item"><a href="{{ result.wikiLink }}" target="blank">Article Wikipédia</a></li>
+    {% endif %}
+  </ul>
 
-  <hr class="red-hr">
-
-  {% if result.modeles %}
+  {% if result.isModelesExist %}
     <hr class="red-hr">
     <div class="card-body">
       <h5 class="card-title">Modèles : </h5>
@@ -19,4 +25,3 @@
     </div>
   {% endif %}
 </div>
-

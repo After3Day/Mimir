@@ -25,7 +25,8 @@ class BrandType extends AbstractType
     {
 
         $builder
-            ->add('brandName')
+            ->add('brandName', TextType::class, [
+                'label' => 'Marque'])
     ;
     }
 

@@ -1,11 +1,6 @@
 window.onload = function () {
 
-
-
-
     $('select').formSelect();
-
-
 
     var urlAjax = $('#urlAjax').val();
     var type = $('#selTest').val();
@@ -15,7 +10,6 @@ window.onload = function () {
     $('#idNumberDiv').hide();
 
     $('#selTest').on('change', function() {
-
         cleanUp();
 
         $('#primary').show();

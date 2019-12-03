@@ -1,28 +1,39 @@
 {% extends 'base.html.twig' %}
 {% block body %}
-<h4>Modifier un club</h4>
+<h4 class="center-align">Modifier un Club</h4>
+
+<div class="row ">
+  <hr class="col s6 offset-s3">
+</div>
 {{ form_start(formClub, {'attr': {'action': path('edit_club', {'id': id}), 'method': 'POST' }}) }}
 
-{{ form_row(formClub.clubName) }}
-
+<h5>Nom du club</h5>
+<div class="row">
+  <div class="col s11">
+    {{ form_row(formClub.clubName) }}
+  </div>
+</div>
+<h5>Adresse du club</h5>
 <ul class="collapsible">
-      <li>
-        <div class="collapsible-header"><span class="card-subtitle">Contact</span></div>
-        <div class="collapsible-body">
-          {{ form_row(formClub.contact) }}
-        </div>
-      </li>
-    </ul>
-<ul class="collapsible">
-      <li>
-        <div class="collapsible-header"><span class="card-subtitle">Addresse</span></div>
-        <div class="collapsible-body">
-          {{ form_row(formClub.address) }}
-        </div>
-      </li>
-    </ul>
+  <li>
+    <div class="collapsible-header"><span class="card-subtitle">Adresse</span></div>
+    <div class="collapsible-body">
+      {{ form_row(formClub.address) }}
+    </div>
+  </li>
+</ul>
 
-<button id="Add2" class="btn waves-effect modal-close waves-test waves-light">Ajouter</button>
+<h5>Personne de contact du club</h5>
+<ul class="collapsible">
+  <li>
+    <div class="collapsible-header"><span class="card-subtitle">Contact</span></div>
+    <div class="collapsible-body">
+      {{ form_row(formClub.contact) }}
+    </div>
+  </li>
+</ul>
+<br>
+<button id="Add2" class="btn waves-effect modal-close waves-test waves-light">Sauvegarder</button>
 {{ form_end(formClub) }}
 
 {% endblock %}

@@ -2,7 +2,7 @@
   <select id="testInTest">
     <option value="0" disabled selected >Choisir un collectionneur</option>
     {% for collector in results %}
-    <option value="{{collector.id}}">{{ collector.contact.name }} {{ collector.contact.surName }}</option>
+    <option value="{{collector.id}}">{{ collector.name }} {{ collector.surName }}</option>
     {% endfor %}
   </select>
   <label>Collectionneurs</label>

@@ -2,26 +2,29 @@
 {% block body %}
 
   <div class="">
-    <h1 class="center">Mimir</h1>
-      <div class="row">
-    <div class="col s12 ">
-      <div class="row">
-        <div class="input-field col s12">
-          <select id="createTest">
-            <option value="0" disabled selected>Choisir une option</option>
-            <option value="Brand">Voiture</option>
-            <option value="Club">Club</option>
-            <option value="Event">Event</option>
-            <option value="Collector">Collector</option>
-            <option value="Designer">Designer</option>
-            <option value="Contact">Contact</option>
-          </select>
-          <label>Critère de recherche</label>
-        </div>
-      </div>
-      <input type="hidden" id="urlAjax" class="form-control" value="{{path('create')}}"/>
+    <h4 class="center-align">Mimir</h4>
+    <div class="row ">
+      <hr class="col s6 offset-s3">
     </div>
-  </div>
+    <h5 class="center-align">Ajouter</h5>
+    <div class="row">
+      <div class="col s12 ">
+        <div class="row">
+          <div class="input-field col s12">
+            <select id="createTest">
+              <option value="0" disabled selected>Choisir une option</option>
+              <option value="Brand">Voiture</option>
+              <option value="Club">Clubs</option>
+              <option value="Event">Événements</option>
+              <option value="Collector">Collectionneurs</option>
+              <option value="Designer">Designers</option>
+            </select>
+            <label>Critère de recherche</label>
+          </div>
+        </div>
+        <input type="hidden" id="urlAjax" class="form-control" value="{{path('create')}}"/>
+      </div>
+    </div>
   </div>
 
   <div class="row">

@@ -19,10 +19,19 @@ class Collector
     private $id;
 
     /**
-     * @ORM\OneToOne(targetEntity="App\Entity\Contact", cascade={"persist", "remove"}, orphanRemoval=true)
-     * @ORM\JoinColumn(nullable=false, onDelete="CASCADE")
+     * @ORM\Column(type="string", length=255)
      */
-    private $contact;
+    private $name;
+
+    /**
+     * @ORM\Column(type="string", length=255)
+     */
+    private $surname;
+
+    /**
+     * @ORM\Column(type="string", length=255, nullable=true)
+     */
+    private $country;
 
     /**
      * @ORM\ManyToMany(targetEntity="App\Entity\Modele", mappedBy="collectors", cascade={"persist"})
@@ -38,18 +47,6 @@ class Collector
     public function getId(): ?int
     {
         return $this->id;
-    }
-
-    public function getContact(): ?Contact
-    {
-        return $this->contact;
-    }
-
-    public function setContact(Contact $contact): self
-    {
-        $this->contact = $contact;
-
-        return $this;
     }
 
     /**
@@ -80,4 +77,44 @@ class Collector
         return $this;
     }
 
+    public function isModelesExist()
+    {
+        return (count($this->getModeles()) < 1) ? false : true;
+    }
+
+    public function getName()
+    {
+        return $this->name;
+    }
+
+    public function setName($name)
+    {
+        $this->name = $name;
+
+        return $this;
+    }
+
+    public function getSurname()
+    {
+        return $this->surname;
+    }
+
+    public function setSurname($surname)
+    {
+        $this->surname = $surname;
+
+        return $this;
+    }
+
+    public function getCountry()
+    {
+        return $this->country;
+    }
+
+    public function setCountry($country)
+    {
+        $this->country = $country;
+
+        return $this;
+    }
 }

@@ -2,7 +2,7 @@
   <select id="testInTest">
     <option value="0" disabled selected >Choisir un designer</option>
     {% for designer in results %}
-    <option value="{{designer.id}}">{{ designer.name}} {{ designer.surName}}</option>
+    <option value="{{designer.id}}">{{ designer.surname}} {{ designer.name}}</option>
     {% endfor %}
   </select>
   <label>Designers</label>

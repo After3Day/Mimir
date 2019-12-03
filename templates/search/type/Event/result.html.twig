@@ -1,44 +1,69 @@
 <!-- if à ajouter si besoin -->
 
-<div class="card mb-3">
+<div class="card-content">
+  <ul>
+    <li class="row collection-item card-title">
+      <div><span class=" break-word col s8">{{ result.eventName }}</span>
+        <div class="secondary-content">
+          <a class="btn-small blue lighten-3" href="{{path('edit_event', {'id':result.id})}}">Modifier</a>
+          <span class="">&nbsp;</span>
+          <a class="btn-small deep-orange accent-2" href="{{path('delete_event', {'id':result.id})}}">Supprimer</a>
+        </div>
+      </div>
+    </li>
+  </ul>
 
-  <h3 class="card-header" >{{ result.eventName }}</h3>
+  <li class="divider red accent-2"></li>
+  <ul class="collection with-header back_color">
+    <li class="collection-header"><h5>Date de l'événement : {{ result.eventDate|date("m/d/Y") }}</h5></li>
+  </ul>
 
-  <a class="btn" href="{{path('edit_event', {'id':result.id})}}">Modifier</a>
-  <a class="btn" href="{{path('delete_event', {'id':result.id})}}">Supprimer</a>
 
-  <hr class="red-hr">
+  <li class="divider red accent-2"></li>
+  <ul class="collapsible">
+    <li>
+      <div class="collapsible-header"><span class="card-subtitle">Adresse de l'événement :</span></div>
+      <div class="collapsible-body">
+        <ul class="collection">
+          <li class="collection-item">Pays : {{ result.address.country }}</li>
+          <li class="collection-item">Ville : {{ result.address.zipCode }} {{ result.address.city }}</li>
+          <li class="collection-item">Rue : {{ result.address.street }} {{ result.address.streetNumber }}</li>
+        </ul>
+      </div>
+    </li>
+  </ul>
 
-  <div class="card-body">
-    <h5 class="card-title">Date de l'event : {{ result.eventDate|date("m/d/Y") }}</h5>
-  </div>
 
-  <hr class="red-hr">
-
-  <div class="card-body">
-  <h5 class="card-title">Addresse :</h5>
-    <ul class="list-group list-group-flush">
-      <li class="list-group-item"><h6 class="mb-1">Pays : </h6> {{ result.address.country }}</li>
-      <li class="list-group-item"><h6 class="mb-1">Ville : </h6> {{ result.address.city }} {{ result.address.zipCode }}</li>
-      <li class="list-group-item"><h6 class="mb-1">Rue : </h6> {{ result.address.street }} {{ result.address.streetNumber }}</li>
-    </ul>
-  </div>
-
-  <hr class="red-hr">
-
-  <div class="card-body">
-    <h5 class="card-title">Personne de contact :</h5>
-    <ul class="list-group list-group-flush">
-      <li class="list-group-item">{{ result.contact.name }} {{ result.contact.surName }}</li>
-      <li class="list-group-item"><h6 class="mb-1">N° de téléphone : </h6> {{ result.contact.phoneNumber }}</li>
-      <li class="list-group-item"><h6 class="mb-1">Email : </h6> {{ result.contact.email }}</li>
-      <li class="list-group-item"><h6 class="mb-1">Site web : </h6> {{ result.contact.webLink }}</li>
-      <ul>
-        <li class="list-group-item"><h6 class="mb-1">Pays : </h6> {{ result.contact.address.country }}</li>
-        <li class="list-group-item"><h6 class="mb-1">Ville : </h6> {{ result.contact.address.city }} {{ result.contact.address.zipCode }}</li>
-        <li class="list-group-item"><h6 class="mb-1">Rue : </h6> {{ result.contact.address.street }} {{ result.contact.address.streetNumber }}</li>
-      </ul>
-    </ul>
-  </div>
-
+  <li class="divider red accent-2"></li>
+  <ul class="collapsible">
+    <li>
+      <div class="collapsible-header"><span class="card-subtitle">Personne de contact :</span></div>
+      <div class="collapsible-body">
+        <ul class="collection">
+          <li class="collection-item">{{ result.contact.surName }} {{ result.contact.name }}</li>
+          <li class="collection-item">N° de téléphone : {{ result.contact.phoneNumber }}</li>
+          <li class="collection-item">Email : {{ result.contact.email }}</li>
+          <li class="collection-item">Site web : <a href="{{ result.contact.webLink }}" target="blank">{{ result.contact.webLink }}</a></li>
+          <ul class="collapsible">
+            <li>
+              <div class="collapsible-header"><span class="card-subtitle">Adresse :</span></div>
+              <div class="collapsible-body">
+                <ul class="collection">
+                  <li class="collection-item">Pays : {{ result.contact.address.country }}</li>
+                  <li class="collection-item">Ville : {{ result.contact.address.zipCode }} {{ result.contact.address.city }}</li>
+                  <li class="collection-item">Rue : {{ result.contact.address.street }} {{ result.contact.address.streetNumber }}</li>
+                </ul>
+              </div>
+            </li>
+          </ul>
+        </ul>
+      </div>
+    </li>
+  </ul>
 </div>
+<script type="text/javascript">
+    $(document).ready(function(){
+
+    $('.collapsible').collapsible();
+  });
+</script>

@@ -1,9 +1,180 @@
 {% extends 'base.html.twig' %}
 {% block body %}
-<h4>Modifier un modèle</h4>
+
+
+<h4 class="center-align">Modifier {{ result.brand.brandName}} {{ result.modele }}</h4>
+<div class="row ">
+  <hr class="col s6 offset-s3">
+</div>
+<h5 class="center-align">De {{ result.year }}</h5>
+
+
+
 {{ form_start(formModele, {'attr': {'action': path('edit_modele', {'id': id}), 'method': 'POST' }}) }}
+<div class="hidden-row">
+  <h5>Marque</h5>
+  <div class="row">
+    <div class="col s11">
+      {{ form_row(formModele.brand) }}
+    </div>
+    <a id="addMarque" class="btn-floating modal-trigger" href="#addMar"><i class="material-icons">add</i></a>
+  </div>
+  <br><br>
+  <h5>Modèle</h5>
+  {{ form_row(formModele.modele) }}
 
 
-<button id="Add2" class="btn waves-effect modal-close waves-test waves-light">Ajouter</button>
+  {{ form_row(formModele.year) }}
+</div>
+
+<br><br>
+
+<h5>Numéros d'identification</h5>
+
+<div class="row">
+  <div class="col s12">
+    <div class="row">
+      <div class="input-field col s12">
+        <i class="material-icons prefix">filter_drama</i>
+        {{ form_widget(formModele.engine) }}
+        <label for="modele[engine]-input">Numéro de moteur</label>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="row">
+  <div class="col s12">
+    <div class="row">
+      <div class="input-field col s12">
+        <i class="material-icons prefix">build</i>
+        {{ form_widget(formModele.gearbox) }}
+        <label for="modele[gearbox]-input">Numéro de boîte</label>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="row">
+  <div class="col s12">
+    <div class="row">
+      <div class="input-field col s12">
+        <i class="material-icons prefix">directions_car</i>
+        {{ form_widget(formModele.frame) }}
+        <label for="modele[frame]-input">Numéro de chassis</label>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="row">
+  <div class="col s12">
+    <div class="row">
+      <div class="input-field col s12">
+        <i class="material-icons prefix">trending_up</i>
+        {{ form_widget(formModele.identification) }}
+        <label for="modele[identification]-input">Numéro d'enchère</label>
+      </div>
+    </div>
+  </div>
+</div>
+
+<h5>Versions</h5>
+<ul id="VerAdd">
+  {% for version in result.versions %}
+    <li  id="{{version.id}}">{{ version.versionName}}</li>
+  {% endfor %}
+</ul>
+<input id="Version" type="hidden" name="Version" value="">
+<ul class="versions" data-prototype="{{ form_widget(formModele.versions.vars.prototype)|e('html_attr') }}">
+  {% for version in formModele.versions %}
+  {% endfor %}
+</ul>
+
+<br><br>
+
+
+<h5>Designers</h5>
+<div class="row">
+  <div class="col s11">
+    {{ form_row(formModele.designers) }}
+  </div>
+  <a id="addDesigner" class="btn-floating modal-trigger" href="#addDes"><i class="material-icons">add</i></a>
+</div>
+<div id="DesAdd" class="collection">
+    {%  for designer in result.designers %}
+      <li id="{{ designer.id}}" class="collection-item DesAdd">{{ designer.name}} {{ designer.surName}}</li>
+    {% endfor %}
+</div>
+<input id="Designer" type="hidden" name="Designer" value="{{result.getDesignersIdList }}">
+
+<br><br>
+
+<h5>Collectionneurs</h5>
+<div class="row">
+  <div class="col s11">
+    {{ form_row(formModele.collectors) }}
+  </div>
+  <a id="addCollector" class="btn-floating modal-trigger" href="#addCol"><i class="material-icons">add</i></a>
+</div>
+<div id="ColAdd" class="collection">
+    {%  for collector in result.collectors %}
+    <li id="{{ designer.id}}" class="collection-item">{{ collector.surname }} {{ collector.name }}</li>
+    {% endfor %}
+</div>
+<input id="Collector" type="hidden" name="Collector" value="{{result.getCollectorsIdList }}">
+
+<br><br>
+
+<h5>Sources</h5>
+<div class="row">
+  <div id="medias" class="col s11">
+  </div>
+  <a id="addMedia" class="btn-floating modal-trigger" href="#addMed"><i class="material-icons">add</i></a>
+</div>
+<div id="MedAdd" class="collection">
+    {%  for media in result.medias %}
+      <li id="{{media.id}}" class="collection-item"> {{ media.name }}</li>
+    {% endfor %}
+</div>
+<input id="Media" type="hidden" name="Media" value="{{result.getMediasIdList }}">
+<br><br>
+
+{{ form_row(formModele.save, {'attr': {'placeholder': 'Sauvegarder'}}) }}
+
 {{ form_end(formModele) }}
+
+<div id="addMar" class="modal">
+  <div class="modal-content" id="Modal_Marque">
+  </div>
+  <div class="modal-footer">
+    <a id="AddDbbMar" class="btn waves-effect modal-close waves-test waves-light" formnovalidate>Ajouter</a>
+  </div>
+</div>
+
+<div id="addDes" class="modal">
+  <div class="modal-content" id="Modal_Designer">
+  </div>
+  <div class="modal-footer">
+    <a id="AddDbbDes" class="btn waves-effect modal-close waves-test waves-light" formnovalidate>Ajouter</a>
+  </div>
+</div>
+
+<div id="addCol" class="modal">
+  <div class="modal-content" id="Modal_Collector">
+  </div>
+  <div class="modal-footer">
+    <button id="AddDbbCol" class="btn waves-effect modal-close waves-test waves-light" formnovalidate>Ajouter</button>
+  </div>
+</div>
+
+<div id="addMed" class="modal">
+  <div class="modal-content" id="Modal_Media">
+  </div>
+  <div class="modal-footer">
+    <button id="AddDbbMed" class="btn waves-effect modal-close waves-test waves-light" formnovalidate>Ajouter</button>
+  </div>
+</div>
+
+
 {% endblock %}

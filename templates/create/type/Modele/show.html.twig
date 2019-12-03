@@ -13,13 +13,66 @@
   </div>
   <a id="addMarque" class="btn-floating modal-trigger" href="#addMar"><i class="material-icons">add</i></a>
 </div>
-
 <br><br>
 
 <h5>Modèle</h5>
 {{ form_row(formModele.modele) }}
-
 <br><br>
+
+<h5>Année</h5>
+{{ form_row(formModele.year) }}
+<br><br>
+
+<h5>Numéros d'identification</h5>
+
+<div class="row">
+  <div class="col s12">
+    <div class="row">
+      <div class="input-field col s12">
+        <i class="material-icons prefix">filter_drama</i>
+        {{ form_widget(formModele.engine) }}
+        <label for="modele[engine]-input">Numéro de moteur</label>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="row">
+  <div class="col s12">
+    <div class="row">
+      <div class="input-field col s12">
+        <i class="material-icons prefix">build</i>
+        {{ form_widget(formModele.gearbox) }}
+        <label for="modele[gearbox]-input">Numéro de boîte</label>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="row">
+  <div class="col s12">
+    <div class="row">
+      <div class="input-field col s12">
+        <i class="material-icons prefix">directions_car</i>
+        {{ form_widget(formModele.frame) }}
+        <label for="modele[frame]-input">Numéro de chassis</label>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="row">
+  <div class="col s12">
+    <div class="row">
+      <div class="input-field col s12">
+        <i class="material-icons prefix">trending_up</i>
+        {{ form_widget(formModele.identification) }}
+        <label for="modele[identification]-input">Numéro d'enchère</label>
+      </div>
+    </div>
+  </div>
+</div>
+
 
 <h5>Versions</h5>
 <ul class="versions" data-prototype="{{ form_widget(formModele.versions.vars.prototype)|e('html_attr') }}">
@@ -33,12 +86,16 @@
 <h5>Designers</h5>
 <div class="row">
   <div class="col s11">
-    {{ form_row(formModele.designers) }}
+    {{ form_row(formModele.designers, {'placeholder': 'Choisir un Designer'}) }}
   </div>
   <a id="addDesigner" class="btn-floating modal-trigger" href="#addDes"><i class="material-icons">add</i></a>
 </div>
-<div id="DesAdd"></div>
-<input id="DesAddId" type="hidden" name="DesAddId" value="">
+<div >
+  <div id="DesAdd" class="collection">
+
+  </div>
+</div>
+<input id="Designer" type="hidden" name="Designer" value="">
 
 <br><br>
 
@@ -49,9 +106,12 @@
   </div>
   <a id="addCollector" class="btn-floating modal-trigger" href="#addCol"><i class="material-icons">add</i></a>
 </div>
-<div id="ColAdd"></div>
-<input id="ColAddId" type="hidden" name="ColAddId" value="">
+<div>
+  <ul id="ColAdd" class="collection">
 
+  </ul>
+</div>
+<input id="Collector" type="hidden" name="Collector" value="">
 <br><br>
 
 <h5>Sources</h5>
@@ -60,8 +120,8 @@
   </div>
   <a id="addMedia" class="btn-floating modal-trigger" href="#addMed"><i class="material-icons">add</i></a>
 </div>
-<div id="MedAdd"></div>
-<input id="MedAddId" type="hidden" name="MedAddId" value="">
+<div id="MedAdd" class="collection"></div>
+<input id="Media" type="hidden" name="Media" value="">
 <br><br>
 
 {{ form_row(formModele.save) }}

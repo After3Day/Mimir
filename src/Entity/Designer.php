@@ -29,11 +29,6 @@ class Designer
     private $surname;
 
     /**
-     * @ORM\Column(type="boolean", nullable=true)
-     */
-    private $alive;
-
-    /**
      * @ORM\Column(type="string", length=255, nullable=true)
      */
     private $wikiLink;
@@ -77,18 +72,6 @@ class Designer
         return $this;
     }
 
-    public function getAlive(): ?bool
-    {
-        return $this->alive;
-    }
-
-    public function setAlive(?bool $alive): self
-    {
-        $this->alive = $alive;
-
-        return $this;
-    }
-
     public function getWikiLink(): ?string
     {
         return $this->wikiLink;
@@ -127,5 +110,10 @@ class Designer
         }
 
         return $this;
+    }
+
+    public function isModelesExist()
+    {
+        return (count($this->getModeles()) < 1) ? false : true;
     }
 }

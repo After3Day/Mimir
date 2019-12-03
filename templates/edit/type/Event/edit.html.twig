@@ -1,9 +1,75 @@
 {% extends 'base.html.twig' %}
 {% block body %}
-<h4>Modifier un Event</h4>
-{{ form_start(formEvent, {'attr': {'action': path('edit_event', {'id': id}), 'method': 'POST' }}) }}
+<h4 class="center-align">Modifier un Événement</h4>
 
+<div class="row ">
+  <hr class="col s6 offset-s3">
+</div>
+{{ form_start(formEvent, {'attr': {'action': path('edit_event', {'id': id}), 'method': 'POST' }} ) }}
 
-<button id="Add2" class="btn waves-effect modal-close waves-test waves-light">Ajouter</button>
+<h5>Nom de l'événement </h5>
+<div class="row">
+  <div class="col s11">
+    {{ form_row(formEvent.eventName) }}
+  </div>
+</div>
+<br>
+
+<h5>Date de l'événement </h5>
+<div class="row">
+  <div class="col s11">
+    {{ form_row(formEvent.eventDate) }}
+  </div>
+</div>
+<br>
+
+<h5>Adresse de l'événement</h5>
+<ul class="collapsible">
+  <li>
+    <div class="collapsible-header"><span class="card-subtitle">Adresse</span></div>
+    <div class="collapsible-body">
+      {{ form_row(formEvent.address) }}
+    </div>
+  </li>
+</ul>
+<br>
+
+<h5>Personne de contact de l'événement </h5>
+<ul class="collapsible">
+  <li>
+    <div class="collapsible-header"><span class="card-subtitle">Contact</span></div>
+    <div class="collapsible-body">
+      {{ form_row(formEvent.contact) }}
+    </div>
+  </li>
+</ul>
+
+<button id="Add2" class="btn waves-effect modal-close waves-test waves-light">Sauvegarder</button>
 {{ form_end(formEvent) }}
+
+<script type="text/javascript">
+  $(document).ready(function(){
+
+    $('.collapsible').collapsible();
+
+    $('.datepicker').datepicker({
+          selectMonths: true, // Creates a dropdown to control month
+          selectYears: 2, // Creates a dropdown of 15 years to control year
+          labelMonthNext: 'Mois suivant',
+          labelMonthPrev: 'Mois précédent',
+          labelMonthSelect: 'Selectionner le mois',
+          labelYearSelect: 'Selectionner une année',
+          monthsFull: [ 'Janvier', 'Février', 'Mars', 'Avril', 'Mai', 'Juin', 'Juillet', 'Août', 'Septembre', 'Octobre', 'Novembre', 'Décembre' ],
+          monthsShort: [ 'Jan', 'Fev', 'Mar', 'Avr', 'Mai', 'Jun', 'Jul', 'Aou', 'Sep', 'Oct', 'Nov', 'Dec' ],
+          weekdaysFull: [ 'Dimanche', 'Lundi', 'Mardi', 'Mercredi', 'Jeudi', 'Vendredi', 'Samedi' ],
+          weekdaysShort: [ 'Dim', 'Lun', 'Mar', 'Mer', 'Jeu', 'Ven', 'Sam' ],
+          weekdaysLetter: [ 'D', 'S', 'T', 'Q', 'Q', 'S', 'S' ],
+          today: 'Aujourd\'hui',
+          clear: 'Réinitialiser',
+          close: 'Fermer',
+          format: 'dd-mm-yyyy'
+        });
+  });
+
+</script>
 {% endblock %}

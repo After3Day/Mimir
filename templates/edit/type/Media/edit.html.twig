@@ -1,17 +1,8 @@
 {% extends 'base.html.twig' %}
 {% block body %}
-<h4>Ajout d'un désigner</h4>
-{{ form_start(formDesigner, {'attr': {'action': path('edit_designer', {'id': id}), 'method': 'POST' }}) }}
-  {{ form_row(formDesigner.name, {
-  'label': 'Nom'
-  }) }}
-  {{ form_row(formDesigner.surname, {
-  'label': 'Prénom'
-  }) }}
-  {{ form_row(formDesigner.wikiLink, {
-  'label': "Lien l'article wikipédia"
-  }) }}
+<h4>Modifier une sources</h4>
+{{ form_start(formMedia, {'attr': {'id': 'form_media_edit', 'action': path('edit_media', {'id': id}), 'method': 'POST' }}) }}
 
-<button id="Add2" class="btn waves-effect modal-close waves-test waves-light">Ajouter</button>
-{{ form_end(formDesigner) }}
+<button id="" class="btn waves-effect modal-close waves-test waves-light">Sauvegarder</button>
+{{ form_end(formMedia) }}
 {% endblock %}

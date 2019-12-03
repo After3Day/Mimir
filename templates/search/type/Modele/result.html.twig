@@ -1,110 +1,115 @@
-<!-- if à ajouter si besoin
-Ajouter du JS -> Flèche pour étendre les infos (pour sources p.ex) -->
-
 <div class="card-content">
-  <h2 class="card-title">{{result.brand.brandName }} {{result.modele }}</h2>
-
-  <a class="btn" href="{{path('edit_modele', {'id':result.id})}}">Modifier</a>
-  <a id="DeleteModele" class="btn" href="{{path('delete_modele', {'id':result.id})}}">Supprimer</a>
+  <ul>
+    <li class="row collection-item card-title">
+      <div ><span class=" break-word col s8">{{result.brand.brandName }} {{result.modele }} {{ result.year }}</span>
+        <div class="secondary-content">
+          <a class="btn-small blue lighten-3" href="{{path('edit_modele', {'id':result.id})}}">Modifier</a>
+          <span class="">&nbsp;</span>
+          <a id="DeleteModele" class="btn-small deep-orange accent-2" href="{{path('delete_modele', {'id':result.id})}}">Supprimer</a>
+        </div>
+      </div>
+    </li>
+  </ul>
 
 {% if result.engine or result.gearbox or result.frame or result.identification %}
-    <div class="card-body">
-      <hr class="red-hr">
-      <h5 class="card-subtitle">Numéro d'indentification :</h5>
+  <li class="divider red accent-2"></li>
+    <ul class="collection with-header back_color">
+      <li class="collection-header"><h5>Numéro d'indentification :</h5></li>
       {% if result.engine %}
-        <h6 class="collapsible-header"><i class="material-icons">filter_drama</i>Moteur : {{ result.engine}}</h6>
+        <li class="collection-item valign-wrapper"><i class="material-icons">filter_drama</i>&nbsp; Moteur : {{ result.engine}}</li>
       {% endif %}
       {% if result.gearbox %}
-        <h6 class="collapsible-header"><i class="material-icons">build</i>Boîte : {{ result.gearbox}} </h6>
+        <li class="collection-item valign-wrapper"><i class="material-icons">build</i>&nbsp; Boîte : {{ result.gearbox}} </li>
       {% endif %}
       {% if result.frame %}
-        <h6 class="collapsible-header"><i class="material-icons">directions_car</i>Châssis : {{ result.frame}}</h6>
+        <li class="collection-item valign-wrapper"><i class="material-icons">directions_car</i>&nbsp; Châssis : {{ result.frame}}</li>
       {% endif %}
       {% if result.identification %}
-        <h6 class="collapsible-header"><i class="material-icons">trending_up</i>Enchère : {{ result.identification}}</h6>
+        <li class="collection-item valign-wrapper"><i class="material-icons">trending_up</i>&nbsp; Enchère : {{ result.identification}}</li>
       {% endif %}
     </ul>
-  </div>
+
 {% endif %}
 
 {% if result.isVersionExist %} <!-- Add Collapse -->
-      <hr class="red-hr">
-      <div class="card-body">
-        <h5 class="card-subtitle">Versions : </h5>
-        {% for version in result.versions %}
-          <ul class="list-group list-group-flush">
-            <li class="list-group-item"><h6 class="mb-1">{{ loop.index }} : </h6> {{ version.versionName}}</li>
-          </ul>
-        {% endfor %}
-      </div>
+  <li class="divider red accent-2"></li>
+  <ul class="collection with-header back_color">
+    <li class="collection-header"><h5>Versions : </h5></li>
+    {% for version in result.versions %}
+      <li class="collection-item">{{ version.versionName}}</li>
+    {% endfor %}
+  </ul>
+{% endif %}
+ <!-- Add Collapse -->
+{% if result.isCollectorsExist %}
+  <li class="divider red accent-2"></li>
+  <ul class="collection with-header back_color">
+    <li class="collection-header"><h5>Collectionneurs : </h5></li>
+    {% for collector in result.collectors %}
+      <li class="collection-item">{{ collector.contact.name}} {{ collector.contact.surName}}</li>
+    {% endfor %}
+  </ul>
 {% endif %}
 
-{% if result.collectors %} <!-- Add Collapse -->
-  {% for collector in result.collectors %}
-    {% if collector.contact.name %}
-      <hr class="red-hr">
-      <div class="card-body">
-        <h5 class="card-subtitle">Collectionneurs : </h5>
-        {% for collector in result.collectors %}
-          <ul class="list-group list-group-flush">
-            <li class="list-group-item">{{ collector.contact.name}} {{ collector.contact.surName}}</li>
-          </ul>
-        {% endfor %}
-      </div>
-    {% endif %}
+{% if result.isDesignersExist %} <!-- Add Collapse -->
+  <li class="divider red accent-2"></li>
+<ul class="collection with-header back_color">
+  <li class="collection-header"><h5>Designers : </h5></li>
+  {% for designer in result.designers %}
+    <li class="collection-item"><a href="{{ designer.WikiLink}}" target="blank">{{ designer.name}} {{ designer.surName}}</a></li>
   {% endfor %}
+</ul>
 {% endif %}
-{% if result.designers %} <!-- Add Collapse -->
-  <hr class="red-hr">
-  <div class="card-body">
-    <h5 class="card-subtitle">Designers : </h5>
-    {% for designer in result.designers %}
-      <ul class="list-group list-group-flush">
-        <li class="list-group-item">{{ designer.name}} {{ designer.surName}}</li>
-      </ul>
-    {% endfor %}
-  </div>
-{% endif %}
-<hr class="red-hr">
-<div class="card-body">
-  <h5 class="card-subtitle">Sources : </h5>
-  {% for media in result.medias %}
-    <hr class="red-hr">
+{% if result.isMediasExist %}
+
+<li class="divider red accent-2"></li>
+<ul class="collection with-header ">
+  <li class="collection-header "><h5>Sources : </h5></li>
+  <li class="collection-item">
     <ul class="collapsible">
+    {% for media in result.medias %}
       <li>
-        <div class="collapsible-header"><span class="card-subtitle">{{loop.index}} : {{ media.name }}</span></div>
+        <div class="collapsible-header"><h5>{{ media.name }}</h5></div>
         <div class="collapsible-body">
-          <ul class="list-group list-group-flush">
+          <ul class="collection">
             {% if media.type %}
-              <li class="list-group-item">Type : {{ media.type }}</li>
+              <li class="collection-item">Type : {{ media.type }}</li>
             {% endif %}
             {% if media.name %}
-              <li class="list-group-item"><h6 class="mb-1">Nom : </h6>{{ media.name }}</li>
+              <li class="collection-item">Nom : {{ media.name }}</li>
             {% endif %}
             {% if media.number %}
-              <li class="list-group-item"><h6 class="mb-1">N° : </h6>{{ media.number }}</li>
+              <li class="collection-item">N° : {{ media.number }}</li>
             {% endif %}
-            {% if media.repertory %}
-              <li class="list-group-item"><h6 class="mb-1">Date de sortie : </h6>{{ media.releaseDate|date("m/d/Y") }}</li>
+            {% if media.releaseDate %}
+              <li class="collection-item">Date de sortie : {{ media.releaseDate }}</li>
             {% endif %}
-            {% if media.repertory %}
-              <li class="list-group-item"><h6 class="mb-1">Auteur : </h6>{{ media.author }}</li>
+            {% if media.author %}
+              <li class="collection-item">Auteur : {{ media.author }}</li>
             {% endif %}
             {% if media.webLink %}
-              <li class="list-group-item"><h6 class="mb-1">Lien : </h6>{{ media.webLink }}</li>
+              <li class="collection-item">Lien : {{ media.webLink }}</li>
             {% endif %}
             {% if media.repertory %}
-              <li class="list-group-item"><h6 class="mb-1">Répertoire : </h6>{{ media.repertory }}</li>
+              <li class="collection-item">Répertoire : {{ media.repertory }}</li>
             {% endif %}
             {% if media.language %}
-              <li class="list-group-item"><h6 class="mb-1">Langue : </h6>{{ media.language }}</li>
+              <li class="collection-item">Langue : {{ media.language }}</li>
             {% endif %}
+            <li class="collection-item">
+            <div>
+                <a id="DeleteMedia" class="secondary-content btn-small deep-orange accent-2" href="{{path('delete_media', {'id':media.id})}}">Supprimer</a><span class="secondary-content">&nbsp;</span>
+                <a class="secondary-content btn-small blue lighten-3" href="{{path('edit_media', {'id':media.id})}}">Modifier</a>
+                </div>
+            </li>
           </ul>
         </div>
       </li>
-    </ul>
-  {% endfor %}
-</div>
+    {% endfor %}
+  </ul>
+  </li>
+</ul>
+{% endif %}
 </div>
 {% block javascripts %}
 <script type="text/javascript" src="{{ asset('js/search2.js') }}"></script>

@@ -1,13 +1,16 @@
-<h4>Ajout d'un désigner</h4>
+<h4 class="center-align">Nouveau Designer</h4>
+
+<div class="row ">
+  <hr class="col s6 offset-s3">
+</div>
 {{ form_start(formDesigner, {'attr': {'id': 'form_person_create', 'action': path('create_designer'), 'method': 'POST' }}) }}
-  {{ form_row(formDesigner.name, {
-  'label': 'Nom'
-  }) }}
-  {{ form_row(formDesigner.surname, {
-  'label': 'Prénom'
-  }) }}
-  {{ form_row(formDesigner.wikiLink, {
-  'label': "Lien l'article wikipédia"
-  }) }}
-  <button id="Add2" class="btn waves-effect modal-close waves-test waves-light">Ajouter</button>
+
+{{ form_row(formDesigner.surname, {'label': 'Prénom'}) }}
+
+{{ form_row(formDesigner.name, {'label': 'Nom'}) }}
+
+{{ form_row(formDesigner.wikiLink, {'label': "Lien l'article wikipédia"}) }}
+<br>
+
+<button id="Add2" class="btn waves-effect modal-close waves-test waves-light">Ajouter</button>
 {{ form_end(formDesigner) }}

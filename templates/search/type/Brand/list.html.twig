@@ -2,7 +2,9 @@
   <select id="testInTest">
     <option value="0" disabled selected>Choisir une marque</option>
     {% for brand in results %}
-    <option value="{{brand.id}}">{{ brand.brandName}}</option>
+      {% if brand.isModelesExist %}
+        <option value="{{brand.id}}">{{ brand.brandName}}</option>
+      {% endif %}
     {% endfor %}
   </select>
   <label>Marque</label>

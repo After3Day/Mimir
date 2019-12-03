@@ -12,6 +12,7 @@ use Symfony\Component\Form\Extension\Core\Type\DateTimeType;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 use Symfony\Component\Form\Extension\Core\Type\TextareaType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
+use Symfony\Component\Form\Extension\Core\Type\UrlType;
 
 class MediaType extends AbstractType
 {
@@ -19,21 +20,30 @@ class MediaType extends AbstractType
     {
         $builder
             ->add('type', TextType::class, [
-                'required' => true])
+                'required' => true,
+                'label' => 'Type de document'])
             ->add('name', TextType::class, [
-                'required' => true])
+                'required' => true,
+                'label' => 'Nom du document'])
             ->add('number', TextType::class, [
-                'required' => false])
+                'required' => false,
+                'label' => 'Numéro'])
             ->add('releaseDate', TextType::class, [
-                'required' => false])
+                'required' => false,
+                'label' => 'Date de parution/Date de sortie',
+                'attr'=>['placeholder' => 'AA/MM/JJ']])
             ->add('author', TextType::class, [
-                'required' => false])
-            ->add('webLink', TextType::class, [
-                'required' => false])
+                'required' => false,
+                'label' => 'Auteur'])
+            ->add('webLink', UrlType::class, [
+                'required' => false,
+                'label' => 'Lien wikipédia'])
             ->add('repertory', TextType::class, [
-                'required' => false])
+                'required' => false,
+                'label' => 'Dossier/Répértoire'])
             ->add('language', TextType::class, [
-                'required' => false])
+                'required' => false,
+                'label' => 'Langue'])
         ;
     }
 

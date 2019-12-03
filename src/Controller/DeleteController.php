@@ -41,10 +41,14 @@ Use App\Form\DesignerType;
 Use App\Form\ContactType;
 Use App\Form\AddressType;
 Use App\Form\MediaType;
-
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 
 /**
 * @Route("/delete")
+*
+* Require ROLE_USER for *every* controller method in this class.
+*
+* @IsGranted("ROLE_USER")
 */
 class DeleteController extends AbstractController
 {
@@ -66,11 +70,11 @@ class DeleteController extends AbstractController
    * @Route("/Brand/{id}", name="delete_brand")
    */
   public function deleteBrand(Brand $brand = null, Request $request, ObjectManager $manager, $from = null) {
-    $repository = $this->em->getRepository(Designer::class);
+    $repository = $this->em->getRepository(Brand::class);
 
-    $designer = $repository->find($id);
+    $brand = $repository->find($id);
 
-    $manager->remove($designer);
+    $manager->remove($brand);
     $manager->flush();
 
     return $this->redirectToRoute('home');
@@ -105,14 +109,14 @@ class DeleteController extends AbstractController
   }
 
   /**
-   * @Route("/Collector/{from}", name="delete_collector")
+   * @Route("/Collector/{id}", name="delete_collector")
    */
-  public function deleteCollector(Collector $collector = null, Request $request, ObjectManager $manager, $from=null) {
-    $repository = $this->em->getRepository(Designer::class);
+  public function deleteCollector(Collector $collector = null, Request $request, ObjectManager $manager, $id) {
+    $repository = $this->em->getRepository(Collector::class);
 
-    $designer = $repository->find($id);
+    $collector = $repository->find($id);
 
-    $manager->remove($designer);
+    $manager->remove($collector);
     $manager->flush();
 
     return $this->redirectToRoute('home');
@@ -122,11 +126,11 @@ class DeleteController extends AbstractController
    * @Route("/Contact/", name="delete_contact")
    */
   public function deleteContact(Contact $contact = null, Request $request, ObjectManager $manager) {
-		$repository = $this->em->getRepository(Designer::class);
+		$repository = $this->em->getRepository(Contact::class);
 
-    $designer = $repository->find($id);
+    $contact = $repository->find($id);
 
-    $manager->remove($designer);
+    $manager->remove($contact);
     $manager->flush();
 
     return $this->redirectToRoute('home');
@@ -165,11 +169,11 @@ class DeleteController extends AbstractController
    * @Route("/Media/{from}", name="delete_media")
    */
   public function deleteMedia(Media $media = null, Request $request, ObjectManager $manager, $from=null) {
-    $repository = $this->em->getRepository(Designer::class);
+    $repository = $this->em->getRepository(Media::class);
 
-    $designer = $repository->find($id);
+    $media = $repository->find($id);
 
-    $manager->remove($designer);
+    $manager->remove($media);
     $manager->flush();
 
     return $this->redirectToRoute('home');

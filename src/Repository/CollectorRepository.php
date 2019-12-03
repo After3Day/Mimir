@@ -25,10 +25,9 @@ class CollectorRepository extends ServiceEntityRepository
     public function findWithPandS($value, $test) {
 
         return $this->createQueryBuilder('m')
-            ->join('m.contact', 'mu')
             ->andWhere('m.id = :id')
             ->setParameter('id', $value)
-            ->orderBy('mu.surname', 'ASC')
+            ->orderBy('m.surname', 'ASC')
             ->getQuery()
             ->getOneOrNullResult();
 

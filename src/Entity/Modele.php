@@ -71,6 +71,11 @@ class Modele
      */
     private $identification;
 
+    /**
+     * @ORM\Column(type="string")
+     */
+    private $year;
+
     public function __construct()
     {
         $this->versions = new ArrayCollection();
@@ -108,8 +113,8 @@ class Modele
         if ($this->versions->contains($version)) {
             $this->versions->removeElement($version);
             // set the owning side to null (unless already changed)
-            if ($version->getModeles() === $this) {
-                $version->setModeles(null);
+            if ($version->getModele() === $this) {
+                $version->setModele(null);
             }
         }
 
@@ -118,7 +123,7 @@ class Modele
 
     public function isVersionExist()
     {
-        (count($this->getVersions()) < 1) ? false : true;
+        return (count($this->getVersions()) < 1) ? false : true;
     }
 
     /**
@@ -147,6 +152,19 @@ class Modele
         return $this;
     }
 
+    public function getCollectorsIdList() {
+        if(!$this->isCollectorsExist()) return null;
+        foreach ($this->getCollectors() as $collector) {
+            $arr[] = $collector->getId();
+        }
+        return implode(",", $arr);
+    }
+
+    public function isCollectorsExist()
+    {
+        return (count($this->getCollectors()) < 1) ? false : true;
+    }
+
     /**
      * @return Collection|Designer[]
      */
@@ -171,6 +189,19 @@ class Modele
         }
 
         return $this;
+    }
+
+    public function getDesignersIdList() {
+        if(!$this->isDesignersExist()) return null;
+        foreach ($this->getDesigners() as $designer) {
+            $arr[] = $designer->getId();
+        }
+        return implode(",", $arr);
+    }
+
+    public function isDesignersExist()
+    {
+        return (count($this->getDesigners()) < 1) ? false : true;
     }
 
     /**
@@ -202,6 +233,19 @@ class Modele
         }
 
         return $this;
+    }
+
+    public function getMediasIdList() {
+        if(!$this->isMediasExist()) return null;
+        foreach ($this->getMedias() as $media) {
+            $arr[] = $media->getId();
+        }
+        return implode(",", $arr);
+    }
+
+    public function isMediasExist()
+    {
+        return (count($this->getMedias()) < 1) ? false : true;
     }
 
     public function getModele(): ?string
@@ -276,4 +320,15 @@ class Modele
         return $this;
     }
 
+    public function getYear()
+    {
+        return $this->year;
+    }
+
+    public function setYear($year)
+    {
+        $this->year = $year;
+
+        return $this;
+    }
 }
