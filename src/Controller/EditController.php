@@ -126,8 +126,6 @@ class EditController extends AbstractController
 
         if ($form->isSubmitted() && $form->isValid()) {
 
-            // Ne Marche qu'une fois ?
-
             $this->spliter->handleCollector($request, 'Collector', $modele, $manager);
             $this->spliter->handleDesigner($request, 'Designer', $modele, $manager);
 

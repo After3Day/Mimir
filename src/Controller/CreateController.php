@@ -89,14 +89,13 @@ class CreateController extends AbstractController
         $brand = new Brand();
 
         $form = $this->createForm(BrandType::class, $brand);
-
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
 
-            $entityManager = $this->getDoctrine()->getManager();
-            $entityManager->persist($brand);
-            $entityManager->flush();
+            $manager = $this->getDoctrine()->getManager();
+            $manager->persist($brand);
+            $manager->flush();
 
             $id = $brand->getId();
 
@@ -138,7 +137,6 @@ class CreateController extends AbstractController
             //Media
             $this->spliter->handleMedia($request, 'Media', $modele, $manager);
 
-
             return $this->redirectToRoute('create');
         }
 
@@ -175,13 +173,10 @@ class CreateController extends AbstractController
             }
 
         }
-
-            return $this->render('create/type/Designer/show.html.twig', [
+        return $this->render('create/type/Designer/show.html.twig', [
             'formDesigner' => $form->createView(),
             'result' => $designer
         ]);
-
-
 
     }
 
